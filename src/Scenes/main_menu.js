@@ -1,6 +1,3 @@
-// Arjun Krishnan
-// 11/29/2023
-
 class Menu extends Phaser.Scene {
     constructor() {
         super("menuScene");
