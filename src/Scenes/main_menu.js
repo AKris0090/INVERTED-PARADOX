@@ -41,7 +41,7 @@ class Menu extends Phaser.Scene {
     update() {
         // number keys for starting a random encounter (will probably add more than just one for different character levels)
         if(Phaser.Input.Keyboard.JustDown(this.one)){
-            this.scene.start('battle', {char: this.character})
+            this.scene.start('battle', {char: this.character, enemy: 'random'})
         }
         // space for starting into the overworld
         if(this.cursors.space.isDown){
