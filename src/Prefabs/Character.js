@@ -14,9 +14,6 @@ class Character {
         this.maxHP = maxHP
         this.hp = maxHP
         this.lvl = lvl
-        // Checks if the character needs to be leveled, and does so if need be
-        this.exp = 0
-        this.increaseExp(exp)
 
         // Constants for level increment amounts
         // RNG values represent ranges, min represents minium
@@ -28,6 +25,10 @@ class Character {
         this.AP_MIN = 2
         this.DEF_MIN = 1
         this.HP_MIN = 20
+
+        // Checks if the character needs to be leveled, and does so if need be
+        this.exp = 0
+        this.increaseExp(exp)
     }
 
     // Increaces exp, then checks if the character needs leveled
@@ -43,12 +44,13 @@ class Character {
     // If the character has more then 100 exp, levels them up and increaces ap, def, and hp by random amounts
     // before checking if they need to be leveled up again
     levelCheck(){
-        if (this.exp > 100){
+        if (this.exp >= 100){
             this.exp -= 100
             this.lvl++;
-            this.ap += Math.floor(Math.random(this.AP_RNG)+this.AP_MIN)
-            this.def += Math.floor(Math.random(this.DEF_RNG)+this.DEF_MIN)
-            this.maxHP += Math.floor(Math.random(this.HP_RNG)+this.HP_MIN)
+            this.ap += Math.floor(Math.random()*this.AP_RNG+this.AP_MIN)
+            this.def += Math.floor(Math.random()*this.DEF_RNG+this.DEF_MIN)
+            this.maxHP += Math.floor(Math.random()*this.HP_RNG+this.HP_MIN)
+            this.levelCheck()
         }
     }
 }
