@@ -7,5 +7,10 @@ class Overworld extends Phaser.Scene {
         console.log("Overworlding!")
     }
 
+    init(data){
+        this.character = data.char
+        console.log(this.character)
+    }
+
     update(){}
 }
