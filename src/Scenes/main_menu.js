@@ -1,4 +1,4 @@
-// Arjun Krishnan
+// Arjun Krishnan and Moore Macauley
 // 11/29/2023
 
 class Menu extends Phaser.Scene {
@@ -35,9 +35,21 @@ class Menu extends Phaser.Scene {
             yoyo: true,
             loop: -1
         });
+
+        // wire up keys
+        this.cursors = this.input.keyboard.createCursorKeys()
+        this.one = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ONE)
     }
 
     // just need to play the animation and check for keyboard input to start the game
     update() {
+        // number keys for starting a random encounter
+        if(Phaser.Input.Keyboard.JustDown(this.one)){
+            this.scene.start('battle')
+        }
+        // space for starting into the overworld
+        if(this.cursors.space.isDown){
+            this.scene.start('overworld')
+        }
     }
 }
