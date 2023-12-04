@@ -37,7 +37,7 @@ class Menu extends Phaser.Scene {
 
     // just need to play the animation and check for keyboard input to start the game
     update() {
-        // number keys for starting a random encounter
+        // number keys for starting a random encounter (will probably add more than just one for different character levels)
         if(Phaser.Input.Keyboard.JustDown(this.one)){
             this.scene.start('battle')
         }
