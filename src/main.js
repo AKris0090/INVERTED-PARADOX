@@ -9,9 +9,13 @@ let config = {
         }
     },
     pixelArt: true,
-    scene: [Menu, Battle, Overworld]
+    scene: [Load, Menu, Battle, Overworld]
 }
 
 let game = new Phaser.Game(config);
 
 // constants and globals
+let centerY = game.config.height/2
+let centerX = game.config.width/2
+let w = game.config.width
+let h = game.config.height
