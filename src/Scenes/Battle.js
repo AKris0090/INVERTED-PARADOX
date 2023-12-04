@@ -31,7 +31,7 @@ class Battle extends Phaser.Scene {
                 y:30
             },
             shadow:{
-                offsetX:1   ,
+                offsetX:1,
                 offsetY:1,
                 blur: 1,
                 fill:true
@@ -59,6 +59,11 @@ class Battle extends Phaser.Scene {
         this.playerHealth = this.add.text(0, h/2, this.character.hp, this.healthConfig).setOrigin(0, 0)
         this.enemyHealth = this.add.text(0, h/2, this.enemy.stats.hp, this.healthConfig).setOrigin(0, 0)
         this.enemyHealth.setX(w - this.enemyHealth.width - this.healthConfig.padding.x * 2)
+
+        this.keys = this.input.keyboard.createCursorKeys()
+
+        // Create the FMS for tracking menu usage
+        this.menu = new MenuStateMachine(this)
     }
 
     init(data){
@@ -80,6 +85,7 @@ class Battle extends Phaser.Scene {
     }
 
     update(){
-
+        console.log(this.menuFSM)
+        this.menuFSM.step()
     }
 }
