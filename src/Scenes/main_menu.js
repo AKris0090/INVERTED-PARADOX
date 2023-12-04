@@ -6,12 +6,6 @@ class Menu extends Phaser.Scene {
         super("menuScene");
     }
 
-    preload() {
-        // load images
-        this.load.image('bkgrnd', './assets/SPLASHES/menubkg.png');
-        this.load.image('button', './assets/SPLASHES/menu_button.png');
-    }
-
     create() {
         // Add background image
         this.add.image(0, 0, 'bkgrnd').setOrigin(0, 0);
