@@ -42,4 +42,17 @@ class Enemy{
             this.stats = this.standardEnemies[this.type]
         }
     }
+    // Returns true if the enemy is dead
+    isDead(){
+        if (hp <= 0){
+            return true
+        }else{
+            return false
+        }
+    }
+
+    // deal damage to the enemy
+    dealDamage(damage){
+        hp -= damage
+    }
 }
