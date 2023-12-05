@@ -14,9 +14,13 @@ class Character {
         this.y = y
         this.ap = ap
         this.def = def
+        this.normalDef = def
         this.maxHP = maxHP
         this.hp = maxHP
         this.lvl = lvl
+
+        // Constant that determines what factor the defence action increaces defense by
+        this.DEF_BUFF = 2
 
         // Constants for level increment amounts
         // RNG values represent ranges, min represents minium
@@ -59,5 +63,13 @@ class Character {
             this.maxHP += Math.floor(Math.random()*this.HP_RNG+this.HP_MIN)
             this.levelCheck()
         }
+    }
+
+    revertDef(){
+        this.def = this.normalDef
+    }
+
+    defAction(){
+        this.def *= this.DEF_BUFF
     }
 }
