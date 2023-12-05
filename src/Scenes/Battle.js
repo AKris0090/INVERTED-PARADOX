@@ -74,10 +74,10 @@ class Battle extends Phaser.Scene {
     // Calculates attack damage based on ap of attacker and def of defender
     attackDamage(ap, def){
         // Damage ranges from ap/2 to 3ap/2
-        let damage = Math.floor(Math.random*ap + ap/2)
+        let damage = Math.floor(Math.random()*ap + ap/2)
         // then reduce damage by the defense
         damage -= def
-        // if damage is negative, deal 0 damage instead, b/c healing a character if their def is too high makes no sense
+        // if damage is negative, deal 0 damage instead, b/c healing a character if their def is too high (while funny) makes no sense
         if (damage < 0){
             return 0
         }
@@ -85,7 +85,7 @@ class Battle extends Phaser.Scene {
     }
 
     update(){
-        console.log(this.menuFSM)
-        this.menuFSM.step()
+        // All that needs to be done is the battlefsm be stepped
+        this.battleFSM.step()
     }
 }

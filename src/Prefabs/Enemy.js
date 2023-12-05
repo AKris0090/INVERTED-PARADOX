@@ -12,7 +12,7 @@ class Enemy{
             squirrel:{
                 ap: 50,
                 def: 10,
-                hp: 50,
+                hp: 200,
                 exp: 50
             },
             townsfolk:{
@@ -53,6 +53,6 @@ class Enemy{
 
     // deal damage to the enemy
     dealDamage(damage){
-        hp -= damage
+        this.stats.hp -= damage
     }
 }

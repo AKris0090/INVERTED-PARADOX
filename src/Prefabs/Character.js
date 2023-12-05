@@ -1,4 +1,7 @@
-//Used for keeping track of the player's stats between battle scenes and the overworld
+// Used for keeping track of the player's stats between battle scenes and the overworld
+// In hindsight, Enemy probably should be a child class of Character, with the constructor deciding which type of enemy
+// the new enemy will be, but it's not really worth refactoring it now
+// Too small syntax differences that would have to be changed everywhere
 
 class Character {
     // Makes a new chacacter. Default level one values provided for experiance (exp), attack power (ap)
@@ -6,7 +9,7 @@ class Character {
     // the character will be automatically leveled up the appropriate number of times
     // Additionally, tracks the current x, y value in the overworld so that the character can be returned
     // to the correct place after a battle is finished
-    constructor(exp = 0, x = 100, y = 100, ap = 150, def = 25, maxHP = 500, lvl = 1){
+    constructor(exp = 0, x = 100, y = 100, ap = 50, def = 25, maxHP = 500, lvl = 1){
         this.x = x
         this.y = y
         this.ap = ap
@@ -39,6 +42,10 @@ class Character {
 
     healToFull(){
         this.hp = this.maxHP
+    }
+
+    dealDamage(damage){
+        this.hp -= damage
     }
 
     // If the character has more then 100 exp, levels them up and increaces ap, def, and hp by random amounts
