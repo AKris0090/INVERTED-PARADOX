@@ -63,7 +63,7 @@ class Battle extends Phaser.Scene {
         this.keys = this.input.keyboard.createCursorKeys()
 
         // Create the FMS for tracking menu usage
-        this.menu = new MenuStateMachine(this)
+        this.menu = new BattleStateMachine(this)
     }
 
     init(data){
