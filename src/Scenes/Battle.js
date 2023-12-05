@@ -7,5 +7,10 @@ class Battle extends Phaser.Scene {
         console.log("fighting!")
     }
 
+    init(data){
+        this.character = data.char
+        console.log(this.character)
+    }
+
     update(){}
 }
