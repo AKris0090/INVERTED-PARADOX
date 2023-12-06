@@ -78,6 +78,11 @@ class Overworld extends Phaser.Scene {
         // Add everythingstore prefab to scene and play anim
         this.eStore = new EverythingStore(this, 415, 250, 'everythingStore')
         this.eStore.anims.play('rain')
+        this.eStore.body.setSize(350, 160)
+        this.eStore.body.setOffset(38, 334)
+        this.eStore.body.setImmovable(true)
+
+        this.physics.add.collider(this.slime, this.eStore)
     }
 
     init(data){
