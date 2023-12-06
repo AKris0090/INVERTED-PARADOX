@@ -19,7 +19,14 @@ class Load extends Phaser.Scene {
         // load graphics assets
         this.load.image('bkgrnd', './assets/SPLASHES/menubkg.png');
         this.load.image('button', './assets/SPLASHES/menu_button.png');
+        this.load.image('hero', './assets/sprites/hero.png')
+        this.load.image('enemy', './assets/sprites/enemy.png')
         // load audio assets
+        this.load.path = './assets/Sounds/'
+        this.load.audio('hit', 'hit.wav')
+        this.load.audio('menuMove', 'menuMove.wav')
+        this.load.audio('run', 'run.wav')
+        this.load.audio('shield', 'shield.wav')
     }
 
     create() {
