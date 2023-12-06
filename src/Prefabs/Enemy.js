@@ -23,7 +23,20 @@ class Enemy{
                 def: 0,
                 hp: 10,
                 exp: 25
+            },
+            // TODO: Remove exp cheat and 'ol zargy, they're for testing leveling up and player death, respectively 
+            'Experiance Cheat':{
+                ap:0,
+                def:0,
+                hp:1,
+                exp:1000
+            },'Zargothrax, Keeper of the Celestial Flame':{
+                ap:9999999,
+                def:9999999,
+                hp:9999999999,
+                exp:99999999999
             }
+
         }
 
         if (this.type === 'random'){
@@ -47,7 +60,7 @@ class Enemy{
     }
     // Returns true if the enemy is dead
     isDead(){
-        if (hp <= 0){
+        if (this.stats.hp <= 0){
             return true
         }else{
             return false

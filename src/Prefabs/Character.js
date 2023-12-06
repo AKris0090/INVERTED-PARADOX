@@ -38,10 +38,10 @@ class Character {
         this.increaseExp(exp)
     }
 
-    // Increaces exp, then checks if the character needs leveled
+    // Increaces exp, then checks if the character needs leveled. Returns true if they did, false if otherwise
     increaseExp(xp){
         this.exp += xp
-        this.levelCheck()
+        return this.levelCheck()
     }
 
     healToFull(){
@@ -52,8 +52,15 @@ class Character {
         this.hp -= damage
     }
 
+    isDead(){
+        if (this.hp <= 0){
+            return true
+        }
+        return false
+    }
+
     // If the character has more then 100 exp, levels them up and increaces ap, def, and hp by random amounts
-    // before checking if they need to be leveled up again
+    // before checking if they need to be leveled up again. Return true if the character was leveled up
     levelCheck(){
         if (this.exp >= 100){
             this.exp -= 100
@@ -62,7 +69,9 @@ class Character {
             this.def += Math.floor(Math.random()*this.DEF_RNG+this.DEF_MIN)
             this.maxHP += Math.floor(Math.random()*this.HP_RNG+this.HP_MIN)
             this.levelCheck()
+            return true
         }
+        return false
     }
 
     revertDef(){

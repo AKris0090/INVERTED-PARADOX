@@ -10,6 +10,7 @@ class Overworld extends Phaser.Scene {
 
     init(data){
         this.character = data.char
+        this.character.healToFull()
         console.log(this.character)
     }
 
