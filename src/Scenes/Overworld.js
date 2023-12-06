@@ -32,7 +32,37 @@ class Overworld extends Phaser.Scene {
         map.createLayer('17', tileset)
         map.createLayer('18', tileset)
         map.createLayer('19', tileset)
+
+        this.slime = this.physics.add.sprite(100, 100, '', 0)
+        this.slime.body.setCollideWorldBounds(true)
+
         map.createLayer('20', tileset)
+
+        // collisions
+        collision1.setCollisionByProperty({
+            collides: true
+        })
+
+        collision2.setCollisionByProperty({
+            collides: true
+        })
+
+        collision3.setCollisionByProperty({
+            collides: true
+        })
+
+
+        this.physics.add.collider(this.slime, collision1)
+        this.physics.add.collider(this.slime, collision2)
+        this.physics.add.collider(this.slime , collision3)
+
+        // input
+        this.cursors = this.input.keyboard.createCursorKeys()
+
+        // camera
+        this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels)
+        this.cameras.main.startFollow(this.slime, true, 0.25, 0.25)
+        this.physics.world.setBounds(0, 0, map.widthInPixels, map.heightInPixel)
     }
 
     init(data){
