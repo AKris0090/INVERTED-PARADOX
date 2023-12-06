@@ -52,12 +52,13 @@ class Overworld extends Phaser.Scene {
 
         // Add character
         this.character = this.physics.add.sprite(characterSpawn.x, characterSpawn.y, 'gumball')
-        this.character.body.setSize(75, 25)
-        this.character.body.setOffset(0, 75)
+        this.character.body.setSize(50, 25, true)
+        this.character.body.setOffset(7, 75)
         this.character.body.setCollideWorldBounds(true)
 
         // create final overlap layer
-        map.createLayer('20', tileset)
+        this.topLayer = map.createLayer('20', tileset)
+        this.topLayer.setDepth(3)
 
         // collisions based on property in tilemap
         collision1.setCollisionByProperty({
@@ -82,7 +83,7 @@ class Overworld extends Phaser.Scene {
 
         // camera
         this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels)
-        this.cameras.main.startFollow(this.character, true, 0.25, 0.25)
+        this.cameras.main.startFollow(this.character, true)
 
         this.physics.add.collider(this.character, this.eStore)
     }
