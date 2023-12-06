@@ -1,3 +1,4 @@
+// Requires a character to be passed in via start data
 class Overworld extends Phaser.Scene {
     constructor() {
         super("overworld");
@@ -81,6 +82,7 @@ class Overworld extends Phaser.Scene {
 
     init(data){
         this.character = data.char
+        this.character.healToFull()
         console.log(this.character)
     }
 
