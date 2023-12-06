@@ -8,6 +8,7 @@ class Battle extends Phaser.Scene {
         this.enemy = new Enemy(this.enemyType)
         console.log("fighting!")
         console.log(this.enemy)
+        console.log(this.character)
 
         // Create a blue rectangle taking up the bottom 1/SCREEN_PORTION of the screen as a textbox, and a green rectangle taking up the rest
         // TODO: Implement the actual art assets once they're made

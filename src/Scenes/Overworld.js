@@ -78,6 +78,7 @@ class Overworld extends Phaser.Scene {
 
         // input
         this.cursors = this.input.keyboard.createCursorKeys()
+        this.one = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ONE)
 
         // camera
         this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels)
@@ -87,9 +88,9 @@ class Overworld extends Phaser.Scene {
     }
 
     init(data){
-        this.character = data.char
-        this.character.healToFull()
-        console.log(this.character)
+        this.player = data.char
+        this.player.healToFull()
+        console.log(this.player)
     }
 
     update(){
@@ -127,6 +128,11 @@ class Overworld extends Phaser.Scene {
         if(this.character.body.y > this.eStore.body.y) {
             this.eStore.setDepth(1)
             this.character.setDepth(2)
+        }
+
+        // manual activation of a random encounter
+        if(Phaser.Input.Keyboard.JustDown(this.one)){
+            this.scene.start('battle', {char: this.player, enemy: 'random'})
         }
     }
 }
