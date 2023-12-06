@@ -23,7 +23,7 @@ class Load extends Phaser.Scene {
         this.load.image('enemy', './assets/Sprites/enemy.png')
         this.load.image('tilesetImage', './assets/tilemaps/gumball_tileset.png')
         this.load.tilemapTiledJSON('tilemapJSON', './assets/tilemaps/Overworld.json')
-
+        this.load.image('gumball', './assets/Prefabs_ANIM_Frames/Gumball.png')
         this.load.spritesheet('everythingStore', './assets/Prefabs_ANIM_Frames/EVERYTHINGSTORE.png', {
             frameWidth: 425,
             frameHeight: 500,

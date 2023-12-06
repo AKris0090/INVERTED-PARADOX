@@ -8,7 +8,7 @@ class Overworld extends Phaser.Scene {
         console.log("Overworlding!")
 
         // velocity constant
-        this.VEL = 750
+        this.VEL = 500
 
         // Create Tilemap and Tileset
         const map = this.add.tilemap('tilemapJSON')
@@ -38,14 +38,23 @@ class Overworld extends Phaser.Scene {
         map.createLayer('18', tileset)
         map.createLayer('19', tileset)
 
+        // Add everythingstore prefab to scene and play anim
+        this.eStore = new EverythingStore(this, 415, 250, 'everythingStore')
+        this.eStore.anims.play('rain')
+        this.eStore.body.setSize(350, 160)
+        this.eStore.body.setOffset(38, 334)
+        this.eStore.body.setImmovable(true)
+
         // Fetch character spawn from tilemap data
-        const slimeSpawn = map.findObject('Spawns', obj => obj.name === 'PlayerSpawn')
+        const characterSpawn = map.findObject('Spawns', obj => obj.name === 'PlayerSpawn')
         // Set world bounds before spawning in
         this.physics.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels)
 
         // Add character
-        this.slime = this.physics.add.sprite(slimeSpawn.x, slimeSpawn.y, '')
-        this.slime.body.setCollideWorldBounds(true)
+        this.character = this.physics.add.sprite(characterSpawn.x, characterSpawn.y, 'gumball')
+        this.character.body.setSize(75, 25)
+        this.character.body.setOffset(0, 75)
+        this.character.body.setCollideWorldBounds(true)
 
         // create final overlap layer
         map.createLayer('20', tileset)
@@ -64,25 +73,18 @@ class Overworld extends Phaser.Scene {
         })
 
         // Add colliders between player and collision layers
-        this.physics.add.collider(this.slime, collision1)
-        this.physics.add.collider(this.slime, collision2)
-        this.physics.add.collider(this.slime, collision3)
+        this.physics.add.collider(this.character, collision1)
+        this.physics.add.collider(this.character, collision2)
+        this.physics.add.collider(this.character, collision3)
 
         // input
         this.cursors = this.input.keyboard.createCursorKeys()
 
         // camera
         this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels)
-        this.cameras.main.startFollow(this.slime, true, 0.25, 0.25)
+        this.cameras.main.startFollow(this.character, true, 0.25, 0.25)
 
-        // Add everythingstore prefab to scene and play anim
-        this.eStore = new EverythingStore(this, 415, 250, 'everythingStore')
-        this.eStore.anims.play('rain')
-        this.eStore.body.setSize(350, 160)
-        this.eStore.body.setOffset(38, 334)
-        this.eStore.body.setImmovable(true)
-
-        this.physics.add.collider(this.slime, this.eStore)
+        this.physics.add.collider(this.character, this.eStore)
     }
 
     init(data){
@@ -92,7 +94,7 @@ class Overworld extends Phaser.Scene {
     }
 
     update(){
-        // slime movement (TEMP)
+        // character movement (TEMP)
         this.direction = new Phaser.Math.Vector2(0)
         if(this.cursors.left.isDown) {
             this.direction.x = -1
@@ -107,6 +109,16 @@ class Overworld extends Phaser.Scene {
         }
 
         this.direction.normalize()
-        this.slime.setVelocity(this.VEL * this.direction.x, this.VEL * this.direction.y)
+        this.character.setVelocity(this.VEL * this.direction.x, this.VEL * this.direction.y)
+
+        // Ortho check for in front/behind estore
+        if(this.character.body.y < this.eStore.body.y) {
+            this.eStore.setDepth(2)
+            this.character.setDepth(1)
+        }
+        if(this.character.body.y > this.eStore.body.y) {
+            this.eStore.setDepth(1)
+            this.character.setDepth(2)
+        }
     }
 }
