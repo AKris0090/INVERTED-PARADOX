@@ -41,8 +41,7 @@ class Overworld extends Phaser.Scene {
         // Add everythingstore prefab to scene and play anim
         this.eStore = new EverythingStore(this, 415, 250, 'everythingStore')
         this.eStore.anims.play('rain')
-        this.eStore.body.setSize(350, 160)
-        this.eStore.body.setOffset(38, 334)
+        this.eStore.body.setSize(350, 160).setOffset(38, 334)
         this.eStore.body.setImmovable(true)
 
         // Fetch character spawn from tilemap data
@@ -51,9 +50,8 @@ class Overworld extends Phaser.Scene {
         this.physics.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels)
 
         // Add character
-        this.character = this.physics.add.sprite(characterSpawn.x, characterSpawn.y, 'gumball')
-        this.character.body.setSize(50, 25, true)
-        this.character.body.setOffset(7, 75)
+        this.character = this.physics.add.sprite(characterSpawn.x, characterSpawn.y, 'gumball', 2)
+        this.character.body.setSize(25, 25, true).setOffset(25, 75)
         this.character.body.setCollideWorldBounds(true)
 
         // create final overlap layer
@@ -99,18 +97,27 @@ class Overworld extends Phaser.Scene {
         this.direction = new Phaser.Math.Vector2(0)
         if(this.cursors.left.isDown) {
             this.direction.x = -1
+            playerDir = 'left'
         } else if(this.cursors.right.isDown) {
             this.direction.x = 1
+            playerDir = 'right'
         }
 
         if(this.cursors.up.isDown) {
             this.direction.y = -1
+            playerDir = 'up'
         } else if(this.cursors.down.isDown) {
             this.direction.y = 1
+            playerDir = 'down'
         }
 
         this.direction.normalize()
         this.character.setVelocity(this.VEL * this.direction.x, this.VEL * this.direction.y)
+
+        // Player anim play
+        let playerMovement
+        this.direction.length() ? playerMovement = 'walk' : playerMovement = 'idle';
+        this.character.play(playerMovement + '-' + playerDir, true);
 
         // Ortho check for in front/behind estore
         if(this.character.body.y < this.eStore.body.y) {
