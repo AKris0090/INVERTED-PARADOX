@@ -53,6 +53,7 @@ class AttackChoice extends State{
     enter(scene){
         // TODO: Change this to highlighting certain parts of text/an arrow pointing at the selection, not just changing the displayed text
         scene.menuText.text = 'Attack'
+        scene.menuMove.play()
     }
 
     execute(scene){
@@ -80,6 +81,7 @@ class AttackAction extends State{
         }
         scene.enemyHealth.text = scene.enemy.stats.hp
         scene.menuText.text = 'You dealt ' + this.damage + ' damage to the ' + scene.enemy.chosenEnemy + '!'
+        scene.hit.play()
     }
 
     execute(scene){
@@ -97,6 +99,7 @@ class DefenseChoice extends State{
     enter(scene){
         // TODO: Change this to highlighting certain parts of text/an arrow pointing at the selection, not just changing the displayed text
         scene.menuText.text = 'Defend'
+        scene.menuMove.play()
     }
 
     execute(scene){
@@ -119,6 +122,7 @@ class DefenseAction extends State{
         // TODO: Change this to highlighting certain parts of text/an arrow pointing at the selection, not just changing the displayed text
         scene.character.defAction()
         scene.menuText.text = 'Your defense is now ' + scene.character.def + '!'
+        scene.shield.play()
     }
 
     execute(scene){
@@ -134,6 +138,7 @@ class RunChoice extends State{
     enter(scene){
         // TODO: Change this to highlighting certain parts of text/an arrow pointing at the selection, not just changing the displayed text
         scene.menuText.text = 'Run'
+        scene.menuMove.play()
     }
 
     execute(scene){
@@ -162,6 +167,7 @@ class RunChoice extends State{
 class RunFailed extends State{
     enter(scene){
         scene.menuText.text = 'You couldn\'t get away!'
+        scene.run.play()
     }
 
     execute(scene){
@@ -176,6 +182,7 @@ class RunFailed extends State{
 class RunSucessful extends State{
     enter(scene){
         scene.menuText.text = 'You got away!'
+        scene.run.play()
     }
 
     execute(scene){
@@ -200,6 +207,7 @@ class EnemyAction extends State{
         scene.menuText.text = 'The ' + scene.enemy.chosenEnemy + ' dealt ' + this.damage + ' damage to you!'
         // If the player chose to defend, revert thier defense to the normal values
         scene.character.revertDef()
+        scene.hit.play()
     }
 
     execute(scene){
@@ -216,6 +224,7 @@ class EnemyAction extends State{
 class EnemyDead extends State{
     enter(scene){
         scene.menuText.text = 'You have defeated the ' + scene.enemy.chosenEnemy + '! You gain ' + scene.enemy.stats.exp + ' experiance points!'
+        scene.menuMove.play()
     }
     execute(scene){
         const { left, right, up, down, space, shift } = scene.keys
@@ -237,6 +246,7 @@ class LevelUp{
         Max health is now ` + scene.character.maxHP + `.
         Attack Power is now ` + scene.character.ap + `.
         Defense is now ` + scene.character.def + `.`
+        scene.menuMove.play()
     }
 
     execute(scene){
@@ -252,6 +262,7 @@ class LevelUp{
 class PlayerDead extends State{
     enter(scene){
         scene.menuText.text = "You have perished. Press space to return to the main menu (or shift if you feel like CHEATING)."
+        scene.menuMove.play()
     }
 
     execute(scene){

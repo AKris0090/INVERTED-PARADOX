@@ -60,6 +60,24 @@ class Battle extends Phaser.Scene {
         this.enemyHealth = this.add.text(0, h/2, this.enemy.stats.hp, this.healthConfig).setOrigin(0, 0)
         this.enemyHealth.setX(w - this.enemyHealth.width - this.healthConfig.padding.x * 2)
 
+        // Create the hero and enemy sprite
+        this.playerSprite = this.physics.add.sprite(w/4, h/4, 'hero')
+        this.enemySprite = this.physics.add.sprite(w - w/4, h/4, 'enemy')
+
+        // Create the sounds (default config probably fine)
+        this.hit = this.sound.add('hit', {
+            volume:.5
+        })
+        this.menuMove = this.sound.add('menuMove', {
+            volume:.5
+        })
+        this.run = this.sound.add('run', {
+            volume:.5
+        })
+        this.shield = this.sound.add('shield', {
+            volume:.5
+        })
+
         this.keys = this.input.keyboard.createCursorKeys()
 
         // Create the FMS for tracking menu usage
