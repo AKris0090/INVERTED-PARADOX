@@ -19,6 +19,9 @@ class Load extends Phaser.Scene {
         // load graphics assets
         this.load.image('bkgrnd', './assets/SPLASHES/menubkg.png');
         this.load.image('button', './assets/SPLASHES/menu_button.png');
+
+        this.load.image('tilesetImage', './assets/tilemaps/gumball_tileset.png')
+        this.load.tilemapTiledJSON('tilemapJSON', './assets/tilemaps/Overworld.json')
         // load audio assets
     }
 
