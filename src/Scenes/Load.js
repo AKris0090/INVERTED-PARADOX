@@ -19,8 +19,15 @@ class Load extends Phaser.Scene {
         // load graphics assets
         this.load.image('bkgrnd', './assets/SPLASHES/menubkg.png');
         this.load.image('button', './assets/SPLASHES/menu_button.png');
-        this.load.image('hero', './assets/sprites/hero.png')
-        this.load.image('enemy', './assets/sprites/enemy.png')
+        this.load.image('hero', './assets/Sprites/hero.png')
+        this.load.image('enemy', './assets/Sprites/enemy.png')
+        this.load.image('tilesetImage', './assets/tilemaps/gumball_tileset.png')
+        this.load.tilemapTiledJSON('tilemapJSON', './assets/tilemaps/Overworld.json')
+        this.load.image('gumball', './assets/Prefabs_ANIM_Frames/Gumball.png')
+        this.load.spritesheet('everythingStore', './assets/Prefabs_ANIM_Frames/EVERYTHINGSTORE.png', {
+            frameWidth: 425,
+            frameHeight: 500,
+        })
         // load audio assets
         this.load.path = './assets/Sounds/'
         this.load.audio('hit', 'hit.wav')
@@ -30,7 +37,16 @@ class Load extends Phaser.Scene {
     }
 
     create() {
-        // create the animations (when we have some)
+        // create the animations
+        this.anims.create({
+            key: 'rain',
+            frameRate: 12,
+            repeat: -1,
+            frames: this.anims.generateFrameNumbers('everythingStore', {
+                frames: [0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 2, 3, 4, 2, 3, 4, 2, 3, 4, 2, 3, 4, 2, 3, 4, 2, 3, 4, 2, 3, 4, 2, 3, 4, 2, 3, 4, 2, 3, 4, 2, 3, 4, 2, 3, 4]
+            })
+        })
+
         // go to Title scene
         this.scene.start('menuScene');
     }
