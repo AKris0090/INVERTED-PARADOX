@@ -33,7 +33,9 @@ class Overworld extends Phaser.Scene {
         map.createLayer('18', tileset)
         map.createLayer('19', tileset)
 
-        this.slime = this.physics.add.sprite(100, 100, '', 0)
+        this.physics.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels)
+
+        this.slime = this.physics.add.sprite(100, 100, '')
         this.slime.body.setCollideWorldBounds(true)
 
         map.createLayer('20', tileset)
@@ -62,7 +64,6 @@ class Overworld extends Phaser.Scene {
         // camera
         this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels)
         this.cameras.main.startFollow(this.slime, true, 0.25, 0.25)
-        this.physics.world.setBounds(0, 0, map.widthInPixels, map.heightInPixel)
     }
 
     init(data){
