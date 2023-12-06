@@ -33,9 +33,11 @@ class Overworld extends Phaser.Scene {
         map.createLayer('18', tileset)
         map.createLayer('19', tileset)
 
+        const slimeSpawn = map.findObject('Spawns', obj => obj.name === 'PlayerSpawn')
+
         this.physics.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels)
 
-        this.slime = this.physics.add.sprite(100, 100, '')
+        this.slime = this.physics.add.sprite(slimeSpawn.x, slimeSpawn.y, '')
         this.slime.body.setCollideWorldBounds(true)
 
         map.createLayer('20', tileset)
@@ -64,6 +66,9 @@ class Overworld extends Phaser.Scene {
         // camera
         this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels)
         this.cameras.main.startFollow(this.slime, true, 0.25, 0.25)
+
+        this.eStore = new EverythingStore(this, 415, 250, 'everythingStore')
+        this.eStore.anims.play('rain')
     }
 
     init(data){

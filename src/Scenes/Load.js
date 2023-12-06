@@ -22,11 +22,25 @@ class Load extends Phaser.Scene {
 
         this.load.image('tilesetImage', './assets/tilemaps/gumball_tileset.png')
         this.load.tilemapTiledJSON('tilemapJSON', './assets/tilemaps/Overworld.json')
+
+        this.load.spritesheet('everythingStore', './assets/Prefabs_ANIM_Frames/EVERYTHINGSTORE.png', {
+            frameWidth: 425,
+            frameHeight: 500,
+        })
         // load audio assets
     }
 
     create() {
-        // create the animations (when we have some)
+        // create the animations
+        this.anims.create({
+            key: 'rain',
+            frameRate: 12,
+            repeat: -1,
+            frames: this.anims.generateFrameNumbers('everythingStore', {
+                frames: [0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 2, 3, 4, 2, 3, 4, 2, 3, 4, 2, 3, 4, 2, 3, 4, 2, 3, 4, 2, 3, 4, 2, 3, 4, 2, 3, 4, 2, 3, 4, 2, 3, 4, 2, 3, 4]
+            })
+        })
+
         // go to Title scene
         this.scene.start('menuScene');
     }
