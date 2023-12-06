@@ -4,9 +4,9 @@ state machine visual representation
 
 <-> AttackChoice <-> DefenceChoice <-> RunChoice <->  
         |                  |               |
-    AttackAction      DefenceAction    RunFailed OR transition back to overworld
-        \                  |               /
-                      EnemyAction
+    AttackAction      DefenceAction    RunFailed OR RunSucessful
+        \                  |               /              |
+                      EnemyAction                     Overworld
                            |
                       EnemyDamage
                            |
@@ -27,6 +27,8 @@ class BattleStateMachine{
             defenseAction: new DefenseAction(),
             attackAction: new AttackAction(),
             enemyAction: new EnemyAction(),
+            runSucessful: new RunSucessful(),
+            runFailed: new RunFailed(),
         }, [scene, this])
     }
 }
@@ -123,6 +125,47 @@ class RunChoice extends State{
         }
         if(Phaser.Input.Keyboard.JustDown(right)){
             this.stateMachine.transition('attack')
+        }
+        if(Phaser.Input.Keyboard.JustDown(space)){
+            // Subtract an amount between 0 and 49 from the player's ap
+            // if that is greater than the enemy's ap, run away sucessfully
+            // autofail if the enemy is the boss
+            this.runValue = scene.character.ap - Math.random()*50
+            console.log(this.runValue)
+            console.log(scene.enemy.stats.ap)
+            if(this.runValue > scene.enemy.stats.ap && scene.enemy.chosenEnemy !== 'boss'){
+                this.stateMachine.transition('runSucessful')
+            }else{
+                this.stateMachine.transition('runFailed')
+            }
+        }
+    }
+}
+
+// The player failed to run away
+class RunFailed extends State{
+    enter(scene, menu){
+        scene.menuText.text = 'You couldn\'t get away!'
+    }
+
+    execute(scene, menu){
+        const { left, right, up, down, space, shift } = scene.keys
+        if(Phaser.Input.Keyboard.JustDown(space)){
+            this.stateMachine.transition('enemyAction')
+        }
+    }
+}
+
+// The player sucessfully ran away
+class RunSucessful extends State{
+    enter(scene, menu){
+        scene.menuText.text = 'You got away!'
+    }
+
+    execute(scene, menu){
+        const { left, right, up, down, space, shift } = scene.keys
+        if(Phaser.Input.Keyboard.JustDown(space)){
+            scene.scene.start('overworld', {char: scene.character})
         }
     }
 }

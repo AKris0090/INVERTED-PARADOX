@@ -1,3 +1,6 @@
+// In hindsight, Enemy probably should be a child class of Character, with the constructor deciding which type of enemy
+// the new enemy will be, but it's not really worth refactoring it now
+// Too small syntax differences that would have to be changed everywhere
 class Enemy{
     // Creates a new enemy for the player to fight 
     // Type allows manual selection of the enemy to be fought
