@@ -34,18 +34,20 @@ class Menu extends Phaser.Scene {
         this.cursors = this.input.keyboard.createCursorKeys()
         this.one = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ONE)
 
-        this.character = new Character()
+        character = new Character()
+        character.x = 1525.24242424242;
+        character.y = 429.818181818182;
     }
 
     // just need to play the animation and check for keyboard input to start the game
     update() {
         // number keys for starting a random encounter (will probably add more than just one for different character levels)
         if(Phaser.Input.Keyboard.JustDown(this.one)){
-            this.scene.start('battle', {char: this.character, enemy: 'random'})
+            this.scene.start('battle', {char: character, enemy: 'random'})
         }
         // space for starting into the overworld
         if(this.cursors.space.isDown){
-            this.scene.start('overworld', {char: this.character})
+            this.scene.start('overworld', {char: character})
         }
     }
 }

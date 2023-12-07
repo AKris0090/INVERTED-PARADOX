@@ -6,8 +6,10 @@ class Battle extends Phaser.Scene {
 
     create(){
         this.enemy = new Enemy(this.enemyType)
+        character.healToFull()
         console.log("fighting!")
         console.log(this.enemy)
+        console.log(character)
 
         // Create a blue rectangle taking up the bottom 1/SCREEN_PORTION of the screen as a textbox, and a green rectangle taking up the rest
         // TODO: Implement the actual art assets once they're made
@@ -56,7 +58,7 @@ class Battle extends Phaser.Scene {
 
         // Creates text that will be used for health
         // TODO: Replace these with proper health bars
-        this.playerHealth = this.add.text(0, h/2, this.character.hp, this.healthConfig).setOrigin(0, 0)
+        this.playerHealth = this.add.text(0, h/2, character.hp, this.healthConfig).setOrigin(0, 0)
         this.enemyHealth = this.add.text(0, h/2, this.enemy.stats.hp, this.healthConfig).setOrigin(0, 0)
         this.enemyHealth.setX(w - this.enemyHealth.width - this.healthConfig.padding.x * 2)
 
@@ -85,7 +87,6 @@ class Battle extends Phaser.Scene {
     }
 
     init(data){
-        this.character = data.char
         this.enemyType = data.enemy
     }
 

@@ -42,7 +42,7 @@ function endCheck(scene, absoluteState){
         absoluteState.stateMachine.transition('enemyDead')
         return
     }
-    if(scene.character.isDead()){
+    if(character.isDead()){
         absoluteState.stateMachine.transition('playerDead')
         return
     }
@@ -73,7 +73,7 @@ class AttackChoice extends State{
 // Attack the enemy, and deal the appropriate damage
 class AttackAction extends State{
     enter(scene){
-        this.damage = scene.attackDamage(scene.character.ap, scene.enemy.stats.def)
+        this.damage = scene.attackDamage(character.ap, scene.enemy.stats.def)
         scene.enemy.dealDamage(this.damage)
         // Prevent health from becoming negative
         if(scene.enemy.stats.hp < 0){
@@ -120,8 +120,8 @@ class DefenseChoice extends State{
 class DefenseAction extends State{
     enter(scene){
         // TODO: Change this to highlighting certain parts of text/an arrow pointing at the selection, not just changing the displayed text
-        scene.character.defAction()
-        scene.menuText.text = 'Your defense is now ' + scene.character.def + '!'
+        character.defAction()
+        scene.menuText.text = 'Your defense is now ' + character.def + '!'
         scene.shield.play()
     }
 
@@ -153,7 +153,7 @@ class RunChoice extends State{
             // Subtract an amount between 0 and 49 from the player's ap
             // if that is greater than the enemy's ap, run away sucessfully
             // autofail if the enemy is the boss
-            this.runValue = scene.character.ap - Math.random()*50
+            this.runValue = character.ap - Math.random()*50
             if(this.runValue > scene.enemy.stats.ap && scene.enemy.chosenEnemy !== 'boss'){
                 this.stateMachine.transition('runSucessful')
             }else{
@@ -189,7 +189,7 @@ class RunSucessful extends State{
         const { left, right, up, down, space, shift } = scene.keys
         if(Phaser.Input.Keyboard.JustDown(space)){
             // TODO: Add some sort of camera effect for transition back to overworld
-            scene.scene.start('overworld', {char: scene.character})
+            scene.scene.start('overworld', {char: character})
         }
     }
 }
@@ -197,16 +197,16 @@ class RunSucessful extends State{
 // The enemy attacks
 class EnemyAction extends State{
     enter(scene){
-        this.damage = scene.attackDamage(scene.enemy.stats.ap, scene.character.def)
-        scene.character.dealDamage(this.damage)
+        this.damage = scene.attackDamage(scene.enemy.stats.ap, character.def)
+        character.dealDamage(this.damage)
         // Prevent hp from going below 0
-        if(scene.character.hp < 0){
-            scene.character.hp = 0
+        if(character.hp < 0){
+            character.hp = 0
         }
-        scene.playerHealth.text = scene.character.hp
+        scene.playerHealth.text = character.hp
         scene.menuText.text = 'The ' + scene.enemy.chosenEnemy + ' dealt ' + this.damage + ' damage to you!'
         // If the player chose to defend, revert thier defense to the normal values
-        scene.character.revertDef()
+        character.revertDef()
         scene.hit.play()
     }
 
@@ -229,11 +229,11 @@ class EnemyDead extends State{
     execute(scene){
         const { left, right, up, down, space, shift } = scene.keys
         if(Phaser.Input.Keyboard.JustDown(space)){
-            if(scene.character.increaseExp(scene.enemy.stats.exp)){
+            if(character.increaseExp(scene.enemy.stats.exp)){
                 this.stateMachine.transition('levelUp')
             }else{
                 // TODO: Add some sort of camera effect for transition back to overworld
-                scene.scene.start('overworld', {char: scene.character})
+                scene.scene.start('overworld')
             }
         }
     }
@@ -243,9 +243,9 @@ class EnemyDead extends State{
 class LevelUp{
     enter(scene){
         scene.menuText.text = `You leveled up!
-        Max health is now ` + scene.character.maxHP + `.
-        Attack Power is now ` + scene.character.ap + `.
-        Defense is now ` + scene.character.def + `.`
+        Max health is now ` + character.maxHP + `.
+        Attack Power is now ` + character.ap + `.
+        Defense is now ` + character.def + `.`
         scene.menuMove.play()
     }
 
@@ -253,7 +253,7 @@ class LevelUp{
         const { left, right, up, down, space, shift } = scene.keys
         if(Phaser.Input.Keyboard.JustDown(space)){
             // TODO: Add some sort of camera effect for transition back to overworld
-            scene.scene.start('overworld', {char: scene.character})
+            scene.scene.start('overworld', {char: character})
         }
     }
 }
@@ -273,7 +273,7 @@ class PlayerDead extends State{
         }
         if(Phaser.Input.Keyboard.JustDown(shift)){
             // TODO: Add some sort of camera effect for transition back to overworld
-            scene.scene.start('overworld', {char: scene.character})
+            scene.scene.start('overworld', {char: character})
         }
     }
 }
