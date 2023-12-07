@@ -11,11 +11,13 @@ class Battle extends Phaser.Scene {
         console.log(this.enemy)
         console.log(character)
 
-        // Create a blue rectangle taking up the bottom 1/SCREEN_PORTION of the screen as a textbox, and a green rectangle taking up the rest
-        // TODO: Implement the actual art assets once they're made
-        this.SCREEN_PORTION = 3
-        this.add.rectangle(0, h - h/this.SCREEN_PORTION, w, h/this.SCREEN_PORTION, 0x0096FF).setOrigin(0, 0)
-        this.add.rectangle(0, 0, w, h - h/this.SCREEN_PORTION, 0x4F7942).setOrigin(0, 0)
+        // Create a green rectangle to make up the background
+        // TODO: implement art assets when created
+        this.add.rectangle(0, 0, w, h, 0x4F7942).setOrigin(0, 0)
+
+        // Create the UI image
+        this.UI = this.add.sprite(0, 0, 'BattleUI').setOrigin(0, 0)
+        this.UI.play('defendChoice')
 
         // Style the text that will be used in the menu
         this.menuConfig = {
@@ -24,13 +26,8 @@ class Battle extends Phaser.Scene {
             color: '#ffffff',
             align: 'left',
             wordWrap:{
-                width: w,
+                width: 0.55*w,
                 useAdvancedWrap: true
-            },
-            // Lone numbers, whoops
-            padding: {
-                x:15,
-                y:30
             },
             shadow:{
                 offsetX:1,
@@ -41,7 +38,8 @@ class Battle extends Phaser.Scene {
         }
 
         // Create the text that will be used 
-        this.menuText = this.add.text(0, h - h/this.SCREEN_PORTION, "Attack", this.menuConfig).setOrigin(0, 0)
+        // TODO: find a better way of placing the text, rather than just y=400
+        this.menuText = this.add.text(0.05*w, 0.71*h, "A " + this.enemy.chosenEnemy + " approaches!", this.menuConfig).setOrigin(0, 0)
 
         // Style the text that will be used for health
         this.healthConfig = {

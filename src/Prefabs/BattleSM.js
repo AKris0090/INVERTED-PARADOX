@@ -32,6 +32,9 @@ class BattleStateMachine{
             playerDead: new PlayerDead(),
             levelUp: new LevelUp(),
         }, [scene])
+        // This will be used to track the option selected by the player last
+        // This is so when it is the player's turn, the last selected option will be the one currently pointed at
+        scene.lastPlayerChoice = 'attack'
     }
 
 }
@@ -52,20 +55,22 @@ function endCheck(scene, absoluteState){
 class AttackChoice extends State{
     enter(scene){
         // TODO: Change this to highlighting certain parts of text/an arrow pointing at the selection, not just changing the displayed text
-        scene.menuText.text = 'Attack'
+        scene.UI.play('attackChoice')
         scene.menuMove.play()
+        scene.menuText.text = ''
     }
 
     execute(scene){
         const { left, right, up, down, space, shift } = scene.keys
-        if(Phaser.Input.Keyboard.JustDown(left)){
+        if(Phaser.Input.Keyboard.JustDown(up)){
             this.stateMachine.transition('run')
         }
-        if(Phaser.Input.Keyboard.JustDown(right)){
+        if(Phaser.Input.Keyboard.JustDown(down)){
             this.stateMachine.transition('defense')
         }
         if(Phaser.Input.Keyboard.JustDown(space)){
             this.stateMachine.transition('attackAction')
+            scene.lastPlayerChoice = 'attack'
         }
     }
 }
@@ -98,20 +103,22 @@ class AttackAction extends State{
 class DefenseChoice extends State{
     enter(scene){
         // TODO: Change this to highlighting certain parts of text/an arrow pointing at the selection, not just changing the displayed text
-        scene.menuText.text = 'Defend'
+        scene.UI.play('defendChoice')
         scene.menuMove.play()
+        scene.menuText.text = ''
     }
 
     execute(scene){
         const { left, right, up, down, space, shift } = scene.keys
-        if(Phaser.Input.Keyboard.JustDown(left)){
+        if(Phaser.Input.Keyboard.JustDown(up)){
             this.stateMachine.transition('attack')
         }
-        if(Phaser.Input.Keyboard.JustDown(right)){
+        if(Phaser.Input.Keyboard.JustDown(down)){
             this.stateMachine.transition('run')
         }
         if(Phaser.Input.Keyboard.JustDown(space)){
             this.stateMachine.transition('defenseAction')
+            scene.lastPlayerChoice = 'defense'
         }
     }
 }
@@ -137,16 +144,17 @@ class DefenseAction extends State{
 class RunChoice extends State{
     enter(scene){
         // TODO: Change this to highlighting certain parts of text/an arrow pointing at the selection, not just changing the displayed text
-        scene.menuText.text = 'Run'
+        scene.UI.play('runChoice')
         scene.menuMove.play()
+        scene.menuText.text = ''
     }
 
     execute(scene){
         const { left, right, up, down, space, shift } = scene.keys
-        if(Phaser.Input.Keyboard.JustDown(left)){
+        if(Phaser.Input.Keyboard.JustDown(up)){
             this.stateMachine.transition('defense')
         }
-        if(Phaser.Input.Keyboard.JustDown(right)){
+        if(Phaser.Input.Keyboard.JustDown(down)){
             this.stateMachine.transition('attack')
         }
         if(Phaser.Input.Keyboard.JustDown(space)){
@@ -159,6 +167,7 @@ class RunChoice extends State{
             }else{
                 this.stateMachine.transition('runFailed')
             }
+            scene.lastPlayerChoice = 'run'
         }
     }
 }
@@ -213,7 +222,7 @@ class EnemyAction extends State{
     execute(scene){
         const { left, right, up, down, space, shift } = scene.keys
         if(Phaser.Input.Keyboard.JustDown(space)){
-            this.stateMachine.transition('attack')
+            this.stateMachine.transition(scene.lastPlayerChoice)
             // Checks if the player died, and end the battle if they did
             endCheck(scene, this)
         }

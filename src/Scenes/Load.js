@@ -31,6 +31,10 @@ class Load extends Phaser.Scene {
             frameWidth: 75,
             frameHeight: 100,
         })
+        this.load.spritesheet('BattleUI', `./assets/UI/BATTLE UI.png`,{
+            frameWidth: 1200,
+            frameHeight: 600
+        })
 
         // load audio assets
         this.load.path = './assets/Sounds/'
@@ -48,6 +52,35 @@ class Load extends Phaser.Scene {
             repeat: -1,
             frames: this.anims.generateFrameNumbers('everythingStore', {
                 frames: [0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 2, 3, 4, 2, 3, 4, 2, 3, 4, 2, 3, 4, 2, 3, 4, 2, 3, 4, 2, 3, 4, 2, 3, 4, 2, 3, 4, 2, 3, 4, 2, 3, 4, 2, 3, 4]
+            })
+        })
+
+        // Animations for battleUI
+        // Created this way so that the only code the needs changed is here if we decide to make the arrow blink in future
+        this.anims.create({
+            key:'attackChoice',
+            frameRate:0,
+            repeat: -1,
+            frames:this.anims.generateFrameNames('BattleUI', {
+                frames: [0]
+            })
+        })
+
+        this.anims.create({
+            key:'defendChoice',
+            frameRate:0,
+            repeat: -1,
+            frames:this.anims.generateFrameNames('BattleUI', {
+                frames: [1]
+            })
+        })
+
+        this.anims.create({
+            key:'runChoice',
+            frameRate:0,
+            repeat: -1,
+            frames:this.anims.generateFrameNames('BattleUI', {
+                frames: [2]
             })
         })
 
