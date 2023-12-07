@@ -96,12 +96,6 @@ class Overworld extends Phaser.Scene {
         });
     }
 
-    init(data){
-        this.player = data.char
-        this.player.healToFull()
-        console.log(this.player)
-    }
-
     update(){
         // character movement (TEMP)
         this.direction = new Phaser.Math.Vector2(0)
@@ -145,7 +139,7 @@ class Overworld extends Phaser.Scene {
 
         // manual activation of a random encounter
         if(Phaser.Input.Keyboard.JustDown(this.one)){
-            this.scene.start('battle', {char: this.player, enemy: 'random'})
+            this.scene.start('battle', {enemy: 'random'})
         }
     }
 }
