@@ -35,6 +35,7 @@ class Load extends Phaser.Scene {
             frameWidth: 1200,
             frameHeight: 600
         })
+        this.load.image('healthBar', './assets/UI/HEALTH BAR.png')
 
         // load audio assets
         this.load.path = './assets/Sounds/'

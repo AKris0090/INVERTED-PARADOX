@@ -16,12 +16,14 @@ class Enemy{
                 ap: 50,
                 def: 10,
                 hp: 200,
+                maxHP:200,
                 exp: 50
             },
             townsfolk:{
                 ap: 1,
                 def: 0,
                 hp: 10,
+                maxHP:10,
                 exp: 25
             },
             // TODO: Remove exp cheat and 'ol zargy, they're for testing leveling up and player death, respectively 
@@ -29,11 +31,13 @@ class Enemy{
                 ap:0,
                 def:0,
                 hp:1,
+                maxHP:1,
                 exp:1000
             },'Zargothrax, Keeper of the Celestial Flame':{
                 ap:9999999,
                 def:9999999,
                 hp:9999999999,
+                maxHP:9999999999,
                 exp:99999999999
             }
 
@@ -51,6 +55,7 @@ class Enemy{
                 ap:500,
                 def: 50,
                 hp: 1000,
+                maxHP:1000,
                 // player wins after this, so i gave them a funny amount of xp
                 exp: 10000000000
             }

@@ -100,18 +100,20 @@ class Overworld extends Phaser.Scene {
         // character movement (TEMP)
         this.direction = new Phaser.Math.Vector2(0)
         if(this.cursors.left.isDown) {
-            this.direction.x = -1
+            this.direction.x += -1
             playerDir = 'left'
-        } else if(this.cursors.right.isDown) {
-            this.direction.x = 1
+        }
+        if(this.cursors.right.isDown) {
+            this.direction.x += 1
             playerDir = 'right'
         }
 
         if(this.cursors.up.isDown) {
-            this.direction.y = -1
+            this.direction.y += -1
             playerDir = 'up'
-        } else if(this.cursors.down.isDown) {
-            this.direction.y = 1
+        }
+        if(this.cursors.down.isDown) {
+            this.direction.y += 1
             playerDir = 'down'
         }
 

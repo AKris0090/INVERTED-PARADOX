@@ -85,6 +85,10 @@ class AttackAction extends State{
             scene.enemy.stats.hp = 0
         }
         scene.enemyHealth.text = scene.enemy.stats.hp
+        scene.enemyHealthBar.setScale(scene.enemy.stats.hp/scene.enemy.stats.maxHP, 1)
+        console.log(scene.enemy.stats.hp/scene.enemy.stats.maxHP)
+        console.log(scene.enemy.stats.hp)
+        console.log(scene.enemy.stats.maxHP)
         scene.menuText.text = 'You dealt ' + this.damage + ' damage to the ' + scene.enemy.chosenEnemy + '!'
         scene.hit.play()
     }
@@ -213,6 +217,7 @@ class EnemyAction extends State{
             character.hp = 0
         }
         scene.playerHealth.text = character.hp
+        scene.playerHealthBar.setScale(character.hp/character.maxHP, 1)
         scene.menuText.text = 'The ' + scene.enemy.chosenEnemy + ' dealt ' + this.damage + ' damage to you!'
         // If the player chose to defend, revert thier defense to the normal values
         character.revertDef()
@@ -251,7 +256,7 @@ class EnemyDead extends State{
 // The player leveled up
 class LevelUp{
     enter(scene){
-        scene.menuText.text = `You leveled up!
+        scene.menuText.text = `You reached level ` + character.lvl + `!
         Max health is now ` + character.maxHP + `.
         Attack Power is now ` + character.ap + `.
         Defense is now ` + character.def + `.`
