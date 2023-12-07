@@ -25,3 +25,6 @@ let centerX = game.config.width/2
 let w = game.config.width
 let h = game.config.height
 let playerDir = 'left'
+let paused = true;
+
+let character

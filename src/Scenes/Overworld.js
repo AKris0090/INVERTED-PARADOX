@@ -1,4 +1,4 @@
-// Requires a character to be passed in via start data
+// Requires a player to be passed in via start data
 class Overworld extends Phaser.Scene {
     constructor() {
         super("overworld");
@@ -44,15 +44,13 @@ class Overworld extends Phaser.Scene {
         this.eStore.body.setSize(350, 160).setOffset(38, 334)
         this.eStore.body.setImmovable(true)
 
-        // Fetch character spawn from tilemap data
-        const characterSpawn = map.findObject('Spawns', obj => obj.name === 'PlayerSpawn')
         // Set world bounds before spawning in
         this.physics.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels)
 
-        // Add character
-        this.character = this.physics.add.sprite(characterSpawn.x, characterSpawn.y, 'gumball', 2)
-        this.character.body.setSize(25, 25, true).setOffset(25, 75)
-        this.character.body.setCollideWorldBounds(true)
+        // Add player
+        this.player = this.physics.add.sprite(character.x, character.y, 'gumball', 2)
+        this.player.body.setSize(25, 25, true).setOffset(25, 75)
+        this.player.body.setCollideWorldBounds(true)
 
         // create final overlap layer
         this.topLayer = map.createLayer('20', tileset)
@@ -72,9 +70,9 @@ class Overworld extends Phaser.Scene {
         })
 
         // Add colliders between player and collision layers
-        this.physics.add.collider(this.character, collision1)
-        this.physics.add.collider(this.character, collision2)
-        this.physics.add.collider(this.character, collision3)
+        this.physics.add.collider(this.player, collision1)
+        this.physics.add.collider(this.player, collision2)
+        this.physics.add.collider(this.player, collision3)
 
         // input
         this.cursors = this.input.keyboard.createCursorKeys()
@@ -82,9 +80,20 @@ class Overworld extends Phaser.Scene {
 
         // camera
         this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels)
-        this.cameras.main.startFollow(this.character, true)
+        this.cameras.main.startFollow(this.player, true)
 
-        this.physics.add.collider(this.character, this.eStore)
+        // collision with eStore
+        this.physics.add.collider(this.player, this.eStore)
+
+        this.battleTimer = this.time.addEvent({
+            delay: 5000,
+            callback: ()=>{
+                character.x = this.player.x;
+                character.y = this.player.y;
+                this.scene.start('battle', {char: character, enemy: 'random'})
+            },
+            paused: true
+        });
     }
 
     init(data){
@@ -113,21 +122,25 @@ class Overworld extends Phaser.Scene {
         }
 
         this.direction.normalize()
-        this.character.setVelocity(this.VEL * this.direction.x, this.VEL * this.direction.y)
+        this.player.setVelocity(this.VEL * this.direction.x, this.VEL * this.direction.y)
 
         // Player anim play
         let playerMovement
         this.direction.length() ? playerMovement = 'walk' : playerMovement = 'idle';
-        this.character.play(playerMovement + '-' + playerDir, true);
+        this.player.play(playerMovement + '-' + playerDir, true);
+
+        // Pause timer
+        console.log(this.battleTimer.getRemainingSeconds())
+        this.direction.length() ? this.battleTimer.paused = false : this.battleTimer.paused = true
 
         // Ortho check for in front/behind estore
-        if(this.character.body.y < this.eStore.body.y) {
+        if(this.player.body.y < this.eStore.body.y) {
             this.eStore.setDepth(2)
-            this.character.setDepth(1)
+            this.player.setDepth(1)
         }
-        if(this.character.body.y > this.eStore.body.y) {
+        if(this.player.body.y > this.eStore.body.y) {
             this.eStore.setDepth(1)
-            this.character.setDepth(2)
+            this.player.setDepth(2)
         }
 
         // manual activation of a random encounter
