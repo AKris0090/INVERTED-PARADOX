@@ -45,7 +45,7 @@ class Enemy{
             this.stats = this.standardEnemies[this.chosenEnemy]
         }
         else if(this.type == 'boss'){
-            // TODO: balance this where a level 5 player can beat it *relitively* easy
+            // roughly beatable at level 7
             this.stats = {
                 ap:500,
                 def: 50,
@@ -53,7 +53,7 @@ class Enemy{
                 maxHP:1000,
                 // player wins after this, so i gave them a funny amount of xp
                 // Used to be more, but it caused a stack size error due to leveling up multiple times being recursive
-                exp: 1000000,
+                exp: 10000,
                 spriteName: 'boss'
             }
             this.chosenEnemy = 'boss'

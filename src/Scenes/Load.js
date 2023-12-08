@@ -17,14 +17,25 @@ class Load extends Phaser.Scene {
         });
 
         // load graphics assets
+        // for the main menu and instructions
         this.load.image('bkgrnd', './assets/SPLASHES/menubkg.png');
         this.load.image('button', './assets/SPLASHES/menu_button.png');
+        this.load.image('blankBackground', './assets/SPLASHES/INSTRUCTIONS_CREDITS.png')
+
+        // for battle
         this.load.image('hero', './assets/Sprites/hero.png')
         this.load.image('enemy', './assets/Sprites/enemy.png')
         this.load.image('squirrel', './assets/Sprites/squirrel.png')
         this.load.image('townsfolk', './assets/Sprites/townsfolk.png')
         this.load.image('bigPlant', './assets/Sprites/bigPlant.png')
         this.load.image('boss', './assets/Sprites/boss.png')
+        this.load.spritesheet('BattleUI', `./assets/UI/BATTLE UI.png`,{
+            frameWidth: 1200,
+            frameHeight: 600
+        })
+        this.load.image('healthBar', './assets/UI/HEALTH BAR.png')
+
+        // for overworld
         this.load.image('tilesetImage', './assets/tilemaps/gumball_tileset.png')
         this.load.tilemapTiledJSON('tilemapJSON', './assets/tilemaps/Overworld.json')
         this.load.spritesheet('everythingStore', './assets/Prefabs_ANIM_Frames/EVERYTHINGSTORE.png', {
@@ -35,11 +46,6 @@ class Load extends Phaser.Scene {
             frameWidth: 75,
             frameHeight: 100,
         })
-        this.load.spritesheet('BattleUI', `./assets/UI/BATTLE UI.png`,{
-            frameWidth: 1200,
-            frameHeight: 600
-        })
-        this.load.image('healthBar', './assets/UI/HEALTH BAR.png')
 
         // load audio assets
         this.load.path = './assets/Sounds/'

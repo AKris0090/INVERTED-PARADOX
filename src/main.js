@@ -14,7 +14,7 @@ let config = {
         }
     },
     pixelArt: true,
-    scene: [Load, Menu, Battle, Overworld]
+    scene: [Load, Menu, Battle, Overworld, Instructions]
 }
 
 let game = new Phaser.Game(config);
