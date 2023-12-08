@@ -25,13 +25,13 @@ class Character {
         // Constants for level increment amounts
         // RNG values represent ranges, min represents minium
         // so, AP_RNG = 10 and AP_MIN = 2 means on level up, ap will increace by ~2-12
-        this.AP_RNG = 10;
-        this.DEF_RNG = 5
-        this.HP_RNG = 20
+        this.AP_RNG = 50;
+        this.DEF_RNG = 30
+        this.HP_RNG = 100
 
-        this.AP_MIN = 2
-        this.DEF_MIN = 1
-        this.HP_MIN = 20
+        this.AP_MIN = 10
+        this.DEF_MIN = 10
+        this.HP_MIN = 50
 
         // Checks if the character needs to be leveled, and does so if need be
         this.exp = 0

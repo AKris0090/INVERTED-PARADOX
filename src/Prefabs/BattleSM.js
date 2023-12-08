@@ -83,6 +83,7 @@ class AttackAction extends State{
         if(scene.enemy.stats.hp < 0){
             scene.enemy.stats.hp = 0
         }
+        // reduces the 
         scene.enemyHealthBar.setCrop(0, 0, scene.enemyHealthBar.width * scene.enemy.stats.hp/scene.enemy.stats.maxHP, scene.enemyHealthBar.height)
         scene.menuText.text = 'You dealt ' + this.damage + ' damage to the ' + scene.enemy.chosenEnemy + '!'
         scene.hit.play()
@@ -157,7 +158,7 @@ class RunChoice extends State{
             // Subtract an amount between 0 and 49 from the player's ap
             // if that is greater than the enemy's ap, run away sucessfully
             // autofail if the enemy is the boss
-            this.runValue = character.ap - Math.random()*50
+            this.runValue = character.ap + Math.random()*scene.enemy.stats.ap
             if(this.runValue > scene.enemy.stats.ap && scene.enemy.chosenEnemy !== 'boss'){
                 this.stateMachine.transition('runSucessful')
             }else{
