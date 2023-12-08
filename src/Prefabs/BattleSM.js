@@ -32,6 +32,9 @@ class BattleStateMachine{
             playerDead: new PlayerDead(),
             levelUp: new LevelUp(),
         }, [scene])
+        // This will be used to track the option selected by the player last
+        // This is so when it is the player's turn, the last selected option will be the one currently pointed at
+        scene.lastPlayerChoice = 'attack'
     }
 
 }
@@ -51,21 +54,22 @@ function endCheck(scene, absoluteState){
 // Provide the player the option to attack
 class AttackChoice extends State{
     enter(scene){
-        // TODO: Change this to highlighting certain parts of text/an arrow pointing at the selection, not just changing the displayed text
-        scene.menuText.text = 'Attack'
+        scene.UI.play('attackChoice')
         scene.menuMove.play()
+        scene.menuText.text = 'The ' + scene.enemy.chosenEnemy + ' looks at you menacingly'
     }
 
     execute(scene){
         const { left, right, up, down, space, shift } = scene.keys
-        if(Phaser.Input.Keyboard.JustDown(left)){
+        if(Phaser.Input.Keyboard.JustDown(up)){
             this.stateMachine.transition('run')
         }
-        if(Phaser.Input.Keyboard.JustDown(right)){
+        if(Phaser.Input.Keyboard.JustDown(down)){
             this.stateMachine.transition('defense')
         }
         if(Phaser.Input.Keyboard.JustDown(space)){
             this.stateMachine.transition('attackAction')
+            scene.lastPlayerChoice = 'attack'
         }
     }
 }
@@ -79,7 +83,8 @@ class AttackAction extends State{
         if(scene.enemy.stats.hp < 0){
             scene.enemy.stats.hp = 0
         }
-        scene.enemyHealth.text = scene.enemy.stats.hp
+        // reduces the 
+        scene.enemyHealthBar.setCrop(0, 0, scene.enemyHealthBar.width * scene.enemy.stats.hp/scene.enemy.stats.maxHP, scene.enemyHealthBar.height)
         scene.menuText.text = 'You dealt ' + this.damage + ' damage to the ' + scene.enemy.chosenEnemy + '!'
         scene.hit.play()
     }
@@ -97,21 +102,22 @@ class AttackAction extends State{
 // Proivde the option for the player to attack
 class DefenseChoice extends State{
     enter(scene){
-        // TODO: Change this to highlighting certain parts of text/an arrow pointing at the selection, not just changing the displayed text
-        scene.menuText.text = 'Defend'
+        scene.UI.play('defendChoice')
         scene.menuMove.play()
+        scene.menuText.text = 'The ' + scene.enemy.chosenEnemy + ' looks at you menacingly'
     }
 
     execute(scene){
         const { left, right, up, down, space, shift } = scene.keys
-        if(Phaser.Input.Keyboard.JustDown(left)){
+        if(Phaser.Input.Keyboard.JustDown(up)){
             this.stateMachine.transition('attack')
         }
-        if(Phaser.Input.Keyboard.JustDown(right)){
+        if(Phaser.Input.Keyboard.JustDown(down)){
             this.stateMachine.transition('run')
         }
         if(Phaser.Input.Keyboard.JustDown(space)){
             this.stateMachine.transition('defenseAction')
+            scene.lastPlayerChoice = 'defense'
         }
     }
 }
@@ -119,7 +125,6 @@ class DefenseChoice extends State{
 // Increace the player's defense for a turn
 class DefenseAction extends State{
     enter(scene){
-        // TODO: Change this to highlighting certain parts of text/an arrow pointing at the selection, not just changing the displayed text
         character.defAction()
         scene.menuText.text = 'Your defense is now ' + character.def + '!'
         scene.shield.play()
@@ -136,29 +141,30 @@ class DefenseAction extends State{
 // Gives the player the choice to run away
 class RunChoice extends State{
     enter(scene){
-        // TODO: Change this to highlighting certain parts of text/an arrow pointing at the selection, not just changing the displayed text
-        scene.menuText.text = 'Run'
+        scene.UI.play('runChoice')
         scene.menuMove.play()
+        scene.menuText.text = 'The ' + scene.enemy.chosenEnemy + ' looks at you menacingly'
     }
 
     execute(scene){
         const { left, right, up, down, space, shift } = scene.keys
-        if(Phaser.Input.Keyboard.JustDown(left)){
+        if(Phaser.Input.Keyboard.JustDown(up)){
             this.stateMachine.transition('defense')
         }
-        if(Phaser.Input.Keyboard.JustDown(right)){
+        if(Phaser.Input.Keyboard.JustDown(down)){
             this.stateMachine.transition('attack')
         }
         if(Phaser.Input.Keyboard.JustDown(space)){
             // Subtract an amount between 0 and 49 from the player's ap
             // if that is greater than the enemy's ap, run away sucessfully
             // autofail if the enemy is the boss
-            this.runValue = character.ap - Math.random()*50
+            this.runValue = character.ap + Math.random()*scene.enemy.stats.ap
             if(this.runValue > scene.enemy.stats.ap && scene.enemy.chosenEnemy !== 'boss'){
                 this.stateMachine.transition('runSucessful')
             }else{
                 this.stateMachine.transition('runFailed')
             }
+            scene.lastPlayerChoice = 'run'
         }
     }
 }
@@ -203,7 +209,7 @@ class EnemyAction extends State{
         if(character.hp < 0){
             character.hp = 0
         }
-        scene.playerHealth.text = character.hp
+        scene.playerHealthBar.setCrop(0, 0, scene.playerHealthBar.width * character.hp/character.maxHP, scene.playerHealthBar.height)
         scene.menuText.text = 'The ' + scene.enemy.chosenEnemy + ' dealt ' + this.damage + ' damage to you!'
         // If the player chose to defend, revert thier defense to the normal values
         character.revertDef()
@@ -213,7 +219,7 @@ class EnemyAction extends State{
     execute(scene){
         const { left, right, up, down, space, shift } = scene.keys
         if(Phaser.Input.Keyboard.JustDown(space)){
-            this.stateMachine.transition('attack')
+            this.stateMachine.transition(scene.lastPlayerChoice)
             // Checks if the player died, and end the battle if they did
             endCheck(scene, this)
         }
@@ -223,7 +229,7 @@ class EnemyAction extends State{
 // The enemy reaches 0 hp
 class EnemyDead extends State{
     enter(scene){
-        scene.menuText.text = 'You have defeated the ' + scene.enemy.chosenEnemy + '! You gain ' + scene.enemy.stats.exp + ' experiance points!'
+        scene.menuText.text = 'You have defeated the ' + scene.enemy.chosenEnemy + '! You gain ' + scene.enemy.stats.exp + ' experience points!'
         scene.menuMove.play()
     }
     execute(scene){
@@ -242,7 +248,7 @@ class EnemyDead extends State{
 // The player leveled up
 class LevelUp{
     enter(scene){
-        scene.menuText.text = `You leveled up!
+        scene.menuText.text = `You reached level ` + character.lvl + `!
         Max health is now ` + character.maxHP + `.
         Attack Power is now ` + character.ap + `.
         Defense is now ` + character.def + `.`

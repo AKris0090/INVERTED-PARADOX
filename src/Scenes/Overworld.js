@@ -77,6 +77,8 @@ class Overworld extends Phaser.Scene {
         // input
         this.cursors = this.input.keyboard.createCursorKeys()
         this.one = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ONE)
+        this.two = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TWO)
+        
 
         // camera
         this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels)
@@ -100,18 +102,20 @@ class Overworld extends Phaser.Scene {
         // character movement (TEMP)
         this.direction = new Phaser.Math.Vector2(0)
         if(this.cursors.left.isDown) {
-            this.direction.x = -1
+            this.direction.x += -1
             playerDir = 'left'
-        } else if(this.cursors.right.isDown) {
-            this.direction.x = 1
+        }
+        if(this.cursors.right.isDown) {
+            this.direction.x += 1
             playerDir = 'right'
         }
 
         if(this.cursors.up.isDown) {
-            this.direction.y = -1
+            this.direction.y += -1
             playerDir = 'up'
-        } else if(this.cursors.down.isDown) {
-            this.direction.y = 1
+        }
+        if(this.cursors.down.isDown) {
+            this.direction.y += 1
             playerDir = 'down'
         }
 
@@ -140,6 +144,11 @@ class Overworld extends Phaser.Scene {
         // manual activation of a random encounter
         if(Phaser.Input.Keyboard.JustDown(this.one)){
             this.scene.start('battle', {enemy: 'random'})
+        }
+
+        // manual activation of a boss
+        if(Phaser.Input.Keyboard.JustDown(this.two)){
+            this.scene.start('battle', {enemy: 'boss'})
         }
     }
 }

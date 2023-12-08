@@ -4,8 +4,8 @@
 // Too small syntax differences that would have to be changed everywhere
 
 class Character {
-    // Makes a new chacacter. Default level one values provided for experiance (exp), attack power (ap)
-    // defense (def), hit points (hp), and level (lvl). If a large amount of experiance is passed in, 
+    // Makes a new chacacter. Default level one values provided for experience (exp), attack power (ap)
+    // defense (def), hit points (hp), and level (lvl). If a large amount of experience is passed in, 
     // the character will be automatically leveled up the appropriate number of times
     // Additionally, tracks the current x, y value in the overworld so that the character can be returned
     // to the correct place after a battle is finished
@@ -25,13 +25,13 @@ class Character {
         // Constants for level increment amounts
         // RNG values represent ranges, min represents minium
         // so, AP_RNG = 10 and AP_MIN = 2 means on level up, ap will increace by ~2-12
-        this.AP_RNG = 10;
-        this.DEF_RNG = 5
-        this.HP_RNG = 20
+        this.AP_RNG = 50;
+        this.DEF_RNG = 30
+        this.HP_RNG = 100
 
-        this.AP_MIN = 2
-        this.DEF_MIN = 1
-        this.HP_MIN = 20
+        this.AP_MIN = 10
+        this.DEF_MIN = 10
+        this.HP_MIN = 50
 
         // Checks if the character needs to be leveled, and does so if need be
         this.exp = 0

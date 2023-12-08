@@ -12,31 +12,30 @@ class Enemy{
         // ap determines damage delt to player, def resists the players damage, hp is how much damage the enemy can take, 
         // and exp is the amount of exp the player gets for killing one
         this.standardEnemies = {
-            squirrel:{
+            townsfolk:{
                 ap: 50,
                 def: 10,
                 hp: 200,
-                exp: 50
+                maxHP:200,
+                exp: 50,
+                spriteName: 'townsfolk'
             },
-            townsfolk:{
-                ap: 1,
-                def: 0,
-                hp: 10,
-                exp: 25
+            squirrel:{
+                ap: 100,
+                def: 20,
+                hp: 500,
+                maxHP:500,
+                exp: 75,
+                spriteName: 'squirrel'
             },
-            // TODO: Remove exp cheat and 'ol zargy, they're for testing leveling up and player death, respectively 
-            'Experiance Cheat':{
-                ap:0,
-                def:0,
-                hp:1,
-                exp:1000
-            },'Zargothrax, Keeper of the Celestial Flame':{
-                ap:9999999,
-                def:9999999,
-                hp:9999999999,
-                exp:99999999999
-            }
-
+            'big plant':{
+                ap: 150,
+                def: 35,
+                hp: 500,
+                maxHP:500,
+                exp: 150,
+                spriteName: 'bigPlant'
+            },
         }
 
         if (this.type === 'random'){
@@ -51,9 +50,13 @@ class Enemy{
                 ap:500,
                 def: 50,
                 hp: 1000,
+                maxHP:1000,
                 // player wins after this, so i gave them a funny amount of xp
-                exp: 10000000000
+                // Used to be more, but it caused a stack size error due to leveling up multiple times being recursive
+                exp: 1000000,
+                spriteName: 'boss'
             }
+            this.chosenEnemy = 'boss'
         }else{
             this.stats = this.standardEnemies[this.type]
         }
