@@ -17,14 +17,16 @@ class Enemy{
                 def: 10,
                 hp: 200,
                 maxHP:200,
-                exp: 50
+                exp: 50,
+                spriteName: 'squirrel'
             },
             townsfolk:{
                 ap: 1,
                 def: 0,
                 hp: 10,
                 maxHP:10,
-                exp: 25
+                exp: 25,
+                spriteName: 'townsfolk'
             },
             // TODO: Remove exp cheat and 'ol zargy, they're for testing leveling up and player death, respectively 
             'Experiance Cheat':{
@@ -32,13 +34,15 @@ class Enemy{
                 def:0,
                 hp:1,
                 maxHP:1,
-                exp:1000
+                exp:1000,
+                spriteName: 'enemy'
             },'Zargothrax, Keeper of the Celestial Flame':{
                 ap:9999999,
                 def:9999999,
                 hp:9999999999,
                 maxHP:9999999999,
-                exp:99999999999
+                exp:99999999999,
+                spriteName: 'enemy'
             }
 
         }
@@ -57,8 +61,10 @@ class Enemy{
                 hp: 1000,
                 maxHP:1000,
                 // player wins after this, so i gave them a funny amount of xp
-                exp: 10000000000
+                exp: 10000000000,
+                spriteName: 'boss'
             }
+            this.chosenEnemy = 'boss'
         }else{
             this.stats = this.standardEnemies[this.type]
         }

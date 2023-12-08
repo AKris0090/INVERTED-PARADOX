@@ -60,7 +60,7 @@ class Battle extends Phaser.Scene {
 
         // Create the hero and enemy sprite
         this.playerSprite = this.physics.add.sprite(w/4, h/4, 'hero')
-        this.enemySprite = this.physics.add.sprite(w - w/4, h/4, 'enemy')
+        this.enemySprite = this.physics.add.sprite(w - w/4, h/4, this.enemy.stats.spriteName)
 
         // Create the sounds (default config probably fine)
         this.hit = this.sound.add('hit', {
