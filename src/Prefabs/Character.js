@@ -4,8 +4,8 @@
 // Too small syntax differences that would have to be changed everywhere
 
 class Character {
-    // Makes a new chacacter. Default level one values provided for experiance (exp), attack power (ap)
-    // defense (def), hit points (hp), and level (lvl). If a large amount of experiance is passed in, 
+    // Makes a new chacacter. Default level one values provided for experience (exp), attack power (ap)
+    // defense (def), hit points (hp), and level (lvl). If a large amount of experience is passed in, 
     // the character will be automatically leveled up the appropriate number of times
     // Additionally, tracks the current x, y value in the overworld so that the character can be returned
     // to the correct place after a battle is finished

@@ -54,10 +54,9 @@ function endCheck(scene, absoluteState){
 // Provide the player the option to attack
 class AttackChoice extends State{
     enter(scene){
-        // TODO: Change this to highlighting certain parts of text/an arrow pointing at the selection, not just changing the displayed text
         scene.UI.play('attackChoice')
         scene.menuMove.play()
-        scene.menuText.text = ''
+        scene.menuText.text = 'The ' + scene.enemy.chosenEnemy + ' looks at you menacingly'
     }
 
     execute(scene){
@@ -84,11 +83,7 @@ class AttackAction extends State{
         if(scene.enemy.stats.hp < 0){
             scene.enemy.stats.hp = 0
         }
-        scene.enemyHealth.text = scene.enemy.stats.hp
-        scene.enemyHealthBar.setScale(scene.enemy.stats.hp/scene.enemy.stats.maxHP, 1)
-        console.log(scene.enemy.stats.hp/scene.enemy.stats.maxHP)
-        console.log(scene.enemy.stats.hp)
-        console.log(scene.enemy.stats.maxHP)
+        scene.enemyHealthBar.setCrop(0, 0, scene.enemyHealthBar.width * scene.enemy.stats.hp/scene.enemy.stats.maxHP, scene.enemyHealthBar.height)
         scene.menuText.text = 'You dealt ' + this.damage + ' damage to the ' + scene.enemy.chosenEnemy + '!'
         scene.hit.play()
     }
@@ -106,10 +101,9 @@ class AttackAction extends State{
 // Proivde the option for the player to attack
 class DefenseChoice extends State{
     enter(scene){
-        // TODO: Change this to highlighting certain parts of text/an arrow pointing at the selection, not just changing the displayed text
         scene.UI.play('defendChoice')
         scene.menuMove.play()
-        scene.menuText.text = ''
+        scene.menuText.text = 'The ' + scene.enemy.chosenEnemy + ' looks at you menacingly'
     }
 
     execute(scene){
@@ -130,7 +124,6 @@ class DefenseChoice extends State{
 // Increace the player's defense for a turn
 class DefenseAction extends State{
     enter(scene){
-        // TODO: Change this to highlighting certain parts of text/an arrow pointing at the selection, not just changing the displayed text
         character.defAction()
         scene.menuText.text = 'Your defense is now ' + character.def + '!'
         scene.shield.play()
@@ -147,10 +140,9 @@ class DefenseAction extends State{
 // Gives the player the choice to run away
 class RunChoice extends State{
     enter(scene){
-        // TODO: Change this to highlighting certain parts of text/an arrow pointing at the selection, not just changing the displayed text
         scene.UI.play('runChoice')
         scene.menuMove.play()
-        scene.menuText.text = ''
+        scene.menuText.text = 'The ' + scene.enemy.chosenEnemy + ' looks at you menacingly'
     }
 
     execute(scene){
@@ -216,8 +208,7 @@ class EnemyAction extends State{
         if(character.hp < 0){
             character.hp = 0
         }
-        scene.playerHealth.text = character.hp
-        scene.playerHealthBar.setScale(character.hp/character.maxHP, 1)
+        scene.playerHealthBar.setCrop(0, 0, scene.playerHealthBar.width * character.hp/character.maxHP, scene.playerHealthBar.height)
         scene.menuText.text = 'The ' + scene.enemy.chosenEnemy + ' dealt ' + this.damage + ' damage to you!'
         // If the player chose to defend, revert thier defense to the normal values
         character.revertDef()
@@ -237,7 +228,7 @@ class EnemyAction extends State{
 // The enemy reaches 0 hp
 class EnemyDead extends State{
     enter(scene){
-        scene.menuText.text = 'You have defeated the ' + scene.enemy.chosenEnemy + '! You gain ' + scene.enemy.stats.exp + ' experiance points!'
+        scene.menuText.text = 'You have defeated the ' + scene.enemy.chosenEnemy + '! You gain ' + scene.enemy.stats.exp + ' experience points!'
         scene.menuMove.play()
     }
     execute(scene){
