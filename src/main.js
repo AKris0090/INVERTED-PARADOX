@@ -1,4 +1,5 @@
 // Sound effects made with https://sfxr.me/
+// GRASS TEXTURE PACK FOR BATTLE SCENE: https://opengameart.org/content/grass-texture-pack
 
 let config = {
     type: Phaser.AUTO,
