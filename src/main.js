@@ -1,5 +1,12 @@
+// Created by Arjun Krishnan and Moore Macauley
 // Sound effects made with https://sfxr.me/
 // GRASS TEXTURE PACK FOR BATTLE SCENE: https://opengameart.org/content/grass-texture-pack
+// For our components, we use:
+// Physics, for the movement of the character in the overworld
+// Tilemap, for creating the map in the overworld
+// Timers, for the tracking of when random encounters should happen in the overworld
+// Cameras, for the effects used to transition between the overworld and the battle scene
+// Animations, for making the character walk in the overworld, the rain effect over THE AWESOME STORE, and probably somewhere else we've forgotten 
 
 let config = {
     type: Phaser.AUTO,
@@ -15,7 +22,7 @@ let config = {
         }
     },
     pixelArt: true,
-    scene: [Load, Menu, Battle, Overworld, Instructions]
+    scene: [Load, Menu, Battle, Overworld, Instructions, Ending, Credits]
 }
 
 let game = new Phaser.Game(config);

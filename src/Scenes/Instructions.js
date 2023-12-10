@@ -22,7 +22,8 @@ class Instructions extends Phaser.Scene{
                 fill:true
             }
         }
-        this.menuText = this.add.text(0.03*w, 0.05*h, `Gumball has been sucked into video game!
+        // TODO: make it more pretty than text on a white background
+        this.menuText = this.add.text(0.03*w, 0.05*h, `Gumball has been sucked into a video game!
         He got the game from THE AWESOME STORE, a place known for selling dangerous items such as this.
         Defeat enemies and defenceless townsfolk until you think you're powerful to face what lurks in THE AWESOME STORE!
 

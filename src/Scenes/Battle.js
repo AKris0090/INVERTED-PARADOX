@@ -57,6 +57,7 @@ class Battle extends Phaser.Scene {
         this.playerHealthBar = this.add.sprite(0.215833333*w, 0.593333333*h, 'healthBar').setOrigin(0,0)
         // 834 of 1200 for enemy width, so 0.695. Same height as the player's bar
         this.enemyHealthBar = this.add.sprite(0.695*w, 0.593333333*h, 'healthBar').setOrigin(0,0)
+        // Hopefully this scales properly. I have my doubts it will, but we do our best
 
         // Create the hero and enemy sprite
         this.playerSprite = this.physics.add.sprite(w*.3, h*.39, 'hero')

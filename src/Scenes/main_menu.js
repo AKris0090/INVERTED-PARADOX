@@ -48,7 +48,7 @@ class Menu extends Phaser.Scene {
         }
         // manual activation of a boss
         if(Phaser.Input.Keyboard.JustDown(this.two)){
-            character.increaseExp(500)
+            character.increaseExp(1000)
             this.scene.start('battle', {enemy: 'boss'})
         }
         // space for starting into the overworld

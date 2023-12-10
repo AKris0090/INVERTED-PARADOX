@@ -238,6 +238,9 @@ class EnemyDead extends State{
     execute(scene){
         const { left, right, up, down, space, shift } = scene.keys
         if(Phaser.Input.Keyboard.JustDown(space)){
+            if(scene.enemy.chosenEnemy === 'boss'){
+                scene.scene.start('ending')
+            }
             if(character.increaseExp(scene.enemy.stats.exp)){
                 this.stateMachine.transition('levelUp')
             }else{
