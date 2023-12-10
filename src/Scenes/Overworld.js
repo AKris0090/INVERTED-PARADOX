@@ -4,6 +4,10 @@ class Overworld extends Phaser.Scene {
         super("overworld");
     }
 
+    startBossBattle(){
+        this.scene.start('battle', {enemy:'boss'})
+    }
+
     create(){
         console.log("Overworlding!")
 
@@ -84,9 +88,6 @@ class Overworld extends Phaser.Scene {
         this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels)
         this.cameras.main.startFollow(this.player, true)
 
-        // collision with eStore
-        this.physics.add.collider(this.player, this.eStore)
-
         this.battleTimer = this.time.addEvent({
             delay: 5000,
             callback: ()=>{
@@ -128,7 +129,6 @@ class Overworld extends Phaser.Scene {
         this.player.play(playerMovement + '-' + playerDir, true);
 
         // Pause timer
-        console.log(this.battleTimer.getRemainingSeconds())
         this.direction.length() ? this.battleTimer.paused = false : this.battleTimer.paused = true
 
         // Ortho check for in front/behind estore
@@ -140,6 +140,8 @@ class Overworld extends Phaser.Scene {
             this.eStore.setDepth(1)
             this.player.setDepth(2)
         }
+
+        this.physics.world.overlap(this.eStore, this.player, this.startBossBattle, null, this)
 
         // manual activation of a random encounter
         if(Phaser.Input.Keyboard.JustDown(this.one)){
