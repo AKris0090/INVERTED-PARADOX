@@ -10,6 +10,13 @@ class Menu extends Phaser.Scene {
         // Add background image
         this.add.image(0, 0, 'bkgrnd').setOrigin(0, 0);
 
+        // play the music
+        this.music = this.sound.add('menuMusic', {
+            volume: 0.15,
+            loop:true
+        })
+        this.music.play()
+
         // ALL OF THESE ARE TEXT CONFIGS
         let menuConfig = {
             fontFamily: 'Courier',
@@ -44,15 +51,18 @@ class Menu extends Phaser.Scene {
     update() {
         // number keys for starting a random encounter (will probably add more than just one for different character levels)
         if(Phaser.Input.Keyboard.JustDown(this.one)){
+            this.music.stop()
             this.scene.start('battle', {enemy: 'random'})
         }
         // manual activation of a boss
         if(Phaser.Input.Keyboard.JustDown(this.two)){
-            character.increaseExp(1000)
+            this.music.stop()
+            character.increaseExp(2000)
             this.scene.start('battle', {enemy: 'boss'})
         }
         // space for starting into the overworld
         if(this.cursors.space.isDown){
+            this.music.stop()
             this.scene.start('instructions')
         }
     }

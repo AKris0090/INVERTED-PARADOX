@@ -8,6 +8,14 @@
 // Cameras, for the effects used to transition between the overworld and the battle scene
 // Animations, for making the character walk in the overworld, the rain effect over THE AWESOME STORE, and probably somewhere else we've forgotten 
 
+// About balancing, for the grader
+// A townsfolk should be easily beatable at level 1
+// The squirrels can usualy be beaten around level 3
+// The plants become beatable around level 5 or 6
+// Then the boss can usually be beaten around level 10
+// This is based on my own testing, stat increases are random, so you may get lucky or not
+// But this seems to be on average
+
 let config = {
     type: Phaser.AUTO,
     width: 1200,

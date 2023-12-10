@@ -60,6 +60,7 @@ class Load extends Phaser.Scene {
         this.load.path = './assets/Music/'
         this.load.audio('battleMusic', 'battleMusic.wav')
         this.load.audio('overworldMusic', 'overworld.ogg')
+        this.load.audio('menuMusic', 'titleTheme.wav')
         
     }
 

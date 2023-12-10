@@ -5,6 +5,14 @@ class Instructions extends Phaser.Scene{
     create(){
         this.add.image(0, 0, 'blankBackground').setOrigin(0, 0);
         this.cursors = this.input.keyboard.createCursorKeys()
+
+        // play the music
+        this.music = this.sound.add('menuMusic', {
+            volume: 0.15,
+            loop:true
+        })
+        this.music.play()
+        
         // Style the text that will be used in the instructions
         this.menuConfig = {
             fontFamily: 'Courier',
@@ -38,6 +46,7 @@ class Instructions extends Phaser.Scene{
     update(){
         // space for starting into the overworld
         if(this.cursors.space.isDown){
+            this.music.stop()
             this.scene.start('overworld')
         }
         

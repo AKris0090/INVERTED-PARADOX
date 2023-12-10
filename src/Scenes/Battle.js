@@ -16,7 +16,7 @@ class Battle extends Phaser.Scene {
 
         // play the music
         this.music = this.sound.add('battleMusic', {
-            volume: 0.25,
+            volume: 0.15,
             loop:true
         })
         this.music.play()
