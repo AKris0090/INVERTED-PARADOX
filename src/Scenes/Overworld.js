@@ -5,11 +5,21 @@ class Overworld extends Phaser.Scene {
     }
 
     startBossBattle(){
-        this.scene.start('battle', {enemy:'boss'})
+        if(this.canMove == true){
+            this.canMove = false
+            this.cameras.main.fadeOut(500, 255, 255, 255, (cam, complete)=>{
+                if(complete == 1){
+                    this.scene.start('battle', {enemy: 'boss'})
+                }
+            })
+        }
     }
 
     create(){
         console.log("Overworlding!")
+        
+        // Used for when transitioning into a battle, so the player can't move during that transition
+        this.canMove = true
 
         // velocity constant
         this.VEL = 500
@@ -89,11 +99,16 @@ class Overworld extends Phaser.Scene {
         this.cameras.main.startFollow(this.player, true)
 
         this.battleTimer = this.time.addEvent({
-            delay: 5000,
+            delay: 1000,
             callback: ()=>{
                 character.x = this.player.x;
                 character.y = this.player.y;
-                this.scene.start('battle', {char: character, enemy: 'random'})
+                this.canMove = false
+                this.cameras.main.fadeOut(500, 255, 255, 255, (cam, complete)=>{
+                    if(complete == 1){
+                        this.scene.start('battle', {char: character, enemy: 'random'})
+                    }
+                })
             },
             paused: true
         });
@@ -102,22 +117,24 @@ class Overworld extends Phaser.Scene {
     update(){
         // character movement (TEMP)
         this.direction = new Phaser.Math.Vector2(0)
-        if(this.cursors.left.isDown) {
-            this.direction.x += -1
-            playerDir = 'left'
-        }
-        if(this.cursors.right.isDown) {
-            this.direction.x += 1
-            playerDir = 'right'
-        }
+        if(this.canMove){
+            if(this.cursors.left.isDown) {
+                this.direction.x += -1
+                playerDir = 'left'
+            }
+            if(this.cursors.right.isDown) {
+                this.direction.x += 1
+                playerDir = 'right'
+            }
 
-        if(this.cursors.up.isDown) {
-            this.direction.y += -1
-            playerDir = 'up'
-        }
-        if(this.cursors.down.isDown) {
-            this.direction.y += 1
-            playerDir = 'down'
+            if(this.cursors.up.isDown) {
+                this.direction.y += -1
+                playerDir = 'up'
+            }
+            if(this.cursors.down.isDown) {
+                this.direction.y += 1
+                playerDir = 'down'
+            }
         }
 
         this.direction.normalize()

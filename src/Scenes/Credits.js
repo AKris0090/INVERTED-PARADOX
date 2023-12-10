@@ -22,11 +22,10 @@ class Credits extends Phaser.Scene{
                 fill:true
             }
         }
-        // TODO: actually have a proper paragraph written out, and make it pretty
         this.menuText = this.add.text(0.03*w, 0.05*h, `Coded by Moore Macauley and Arjun Krishnan
         Unmentioned art assets created by Arjun Krishnan
         Battle sound effects courtesy of https://sfxr.me/
-        Grass texture in the battle's background comes from 
+        Grass texture in the battle's background comes from https://opengameart.org/content/grass-texture-pack
 
         Press space to continue
         `, this.menuConfig).setOrigin(0, 0)

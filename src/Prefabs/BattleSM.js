@@ -16,6 +16,8 @@ Before all transitions, the current player and enemy's health will be checked
 If the player is dead, transition to PlayerDead state, EnemyDead state if the enemy is dead
 */
 
+let goingBack
+
 class BattleStateMachine{
     constructor(scene){
         this.scene = scene
@@ -35,6 +37,7 @@ class BattleStateMachine{
         // This will be used to track the option selected by the player last
         // This is so when it is the player's turn, the last selected option will be the one currently pointed at
         scene.lastPlayerChoice = 'attack'
+        goingBack = false
     }
 
 }
@@ -51,6 +54,21 @@ function endCheck(scene, absoluteState){
         return true
     }
     return false
+}
+
+// Sends the player back to the overworld
+// Going back bool is to stop the fade out from being triggered multiple times
+function backToOverworld(scene){
+    console.log(goingBack)
+    if (goingBack == false){
+        goingBack = true
+        console.log("activating fade")
+        scene.cameras.main.fadeOut(500, 255, 255, 255, (cam, complete)=>{
+            if(complete == 1){
+                scene.scene.start('overworld')
+            }
+        }, scene)
+    }
 }
 
 // Provide the player the option to attack
@@ -196,8 +214,7 @@ class RunSucessful extends State{
     execute(scene){
         const { left, right, up, down, space, shift } = scene.keys
         if(Phaser.Input.Keyboard.JustDown(space)){
-            // TODO: Add some sort of camera effect for transition back to overworld
-            scene.scene.start('overworld', {char: character})
+            backToOverworld(scene)
         }
     }
 }
@@ -240,12 +257,10 @@ class EnemyDead extends State{
         if(Phaser.Input.Keyboard.JustDown(space)){
             if(scene.enemy.chosenEnemy === 'boss'){
                 scene.scene.start('ending')
-            }
-            if(character.increaseExp(scene.enemy.stats.exp)){
+            }else if(character.increaseExp(scene.enemy.stats.exp)){
                 this.stateMachine.transition('levelUp')
             }else{
-                // TODO: Add some sort of camera effect for transition back to overworld
-                scene.scene.start('overworld')
+                backToOverworld(scene)
             }
         }
     }
@@ -264,8 +279,7 @@ class LevelUp{
     execute(scene){
         const { left, right, up, down, space, shift } = scene.keys
         if(Phaser.Input.Keyboard.JustDown(space)){
-            // TODO: Add some sort of camera effect for transition back to overworld
-            scene.scene.start('overworld', {char: character})
+            backToOverworld(scene)
         }
     }
 }
@@ -280,12 +294,10 @@ class PlayerDead extends State{
     execute(scene){
         const { left, right, up, down, space, shift } = scene.keys
         if(Phaser.Input.Keyboard.JustDown(space)){
-            // TODO: Add some sort of camera effect for transition back to overworld
             scene.scene.start('menuScene')
         }
         if(Phaser.Input.Keyboard.JustDown(shift)){
-            // TODO: Add some sort of camera effect for transition back to overworld
-            scene.scene.start('overworld', {char: character})
+            scene.scene.start('overworld')
         }
     }
 }
