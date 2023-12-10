@@ -34,6 +34,7 @@ class Load extends Phaser.Scene {
             frameHeight: 600
         })
         this.load.image('healthBar', './assets/UI/HEALTH BAR.png')
+        this.load.image('battleBackground', './assets/SPLASHES/BATTLEBACKGROUND.png')
 
         // for overworld
         this.load.image('tilesetImage', './assets/tilemaps/gumball_tileset.png')

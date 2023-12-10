@@ -13,7 +13,7 @@ class Battle extends Phaser.Scene {
 
         // Create a green rectangle to make up the background
         // TODO: implement art assets when created
-        this.add.rectangle(0, 0, w, h, 0x4F7942).setOrigin(0, 0)
+        this.add.image(0, 0, 'battleBackground').setOrigin(0, 0)
 
         // Create the UI image
         this.UI = this.add.sprite(0, 0, 'BattleUI').setOrigin(0, 0)
@@ -59,8 +59,8 @@ class Battle extends Phaser.Scene {
         this.enemyHealthBar = this.add.sprite(0.695*w, 0.593333333*h, 'healthBar').setOrigin(0,0)
 
         // Create the hero and enemy sprite
-        this.playerSprite = this.physics.add.sprite(w/4, h/4, 'hero')
-        this.enemySprite = this.physics.add.sprite(w - w/4, h/4, this.enemy.stats.spriteName)
+        this.playerSprite = this.physics.add.sprite(w*.3, h*.39, 'hero')
+        this.enemySprite = this.physics.add.sprite(w - w*.3, h*.39, this.enemy.stats.spriteName)
 
         // Create the sounds (default config probably fine)
         this.hit = this.sound.add('hit', {

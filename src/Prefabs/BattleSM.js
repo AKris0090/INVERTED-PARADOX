@@ -39,16 +39,18 @@ class BattleStateMachine{
 
 }
 
-// Tests if the bettle should end, due to either player or enemy death
+// Tests if the battle should end, due to either player or enemy death
+// Returns true if it should, false otherwise
 function endCheck(scene, absoluteState){
     if(scene.enemy.isDead()){
         absoluteState.stateMachine.transition('enemyDead')
-        return
+        return true
     }
     if(character.isDead()){
         absoluteState.stateMachine.transition('playerDead')
-        return
+        return true
     }
+    return false
 }
 
 // Provide the player the option to attack
@@ -92,9 +94,9 @@ class AttackAction extends State{
     execute(scene){
         const { left, right, up, down, space, shift } = scene.keys
         if(Phaser.Input.Keyboard.JustDown(space)){
-            this.stateMachine.transition('enemyAction')
-            // Checks if the enemy died, and end the battle if it did
-            endCheck(scene, this)
+            if(endCheck(scene, this) != true){
+                this.stateMachine.transition('enemyAction')       
+            }     
         }
     }
 }
@@ -155,7 +157,7 @@ class RunChoice extends State{
             this.stateMachine.transition('attack')
         }
         if(Phaser.Input.Keyboard.JustDown(space)){
-            // Subtract an amount between 0 and 49 from the player's ap
+            // add the characters ap to a random value between 0 and the enemy's ap
             // if that is greater than the enemy's ap, run away sucessfully
             // autofail if the enemy is the boss
             this.runValue = character.ap + Math.random()*scene.enemy.stats.ap
@@ -219,9 +221,10 @@ class EnemyAction extends State{
     execute(scene){
         const { left, right, up, down, space, shift } = scene.keys
         if(Phaser.Input.Keyboard.JustDown(space)){
-            this.stateMachine.transition(scene.lastPlayerChoice)
             // Checks if the player died, and end the battle if they did
-            endCheck(scene, this)
+            if(endCheck(scene, this) != true){
+                this.stateMachine.transition(scene.lastPlayerChoice)       
+            }    
         }
     }
 }
