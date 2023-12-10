@@ -65,6 +65,7 @@ function backToOverworld(scene){
         console.log("activating fade")
         scene.cameras.main.fadeOut(500, 255, 255, 255, (cam, complete)=>{
             if(complete == 1){
+                scene.music.stop()
                 scene.scene.start('overworld')
             }
         }, scene)
@@ -256,6 +257,7 @@ class EnemyDead extends State{
         const { left, right, up, down, space, shift } = scene.keys
         if(Phaser.Input.Keyboard.JustDown(space)){
             if(scene.enemy.chosenEnemy === 'boss'){
+                scene.music.stop()
                 scene.scene.start('ending')
             }else if(character.increaseExp(scene.enemy.stats.exp)){
                 this.stateMachine.transition('levelUp')
@@ -294,9 +296,11 @@ class PlayerDead extends State{
     execute(scene){
         const { left, right, up, down, space, shift } = scene.keys
         if(Phaser.Input.Keyboard.JustDown(space)){
+            scene.music.stop()
             scene.scene.start('menuScene')
         }
         if(Phaser.Input.Keyboard.JustDown(shift)){
+            scene.music.stop()
             scene.scene.start('overworld')
         }
     }

@@ -54,6 +54,13 @@ class Load extends Phaser.Scene {
         this.load.audio('menuMove', 'menuMove.wav')
         this.load.audio('run', 'run.wav')
         this.load.audio('shield', 'shield.wav')
+        this.load.audio('battleStart', 'battleStart.ogg')
+
+        // load music
+        this.load.path = './assets/Music/'
+        this.load.audio('battleMusic', 'battleMusic.wav')
+        this.load.audio('overworldMusic', 'overworld.ogg')
+        
     }
 
     create() {

@@ -11,9 +11,15 @@ class Battle extends Phaser.Scene {
         console.log(this.enemy)
         console.log(character)
 
-        // Create a green rectangle to make up the background
-        // TODO: implement art assets when created
+        // Create the background image
         this.add.image(0, 0, 'battleBackground').setOrigin(0, 0)
+
+        // play the music
+        this.music = this.sound.add('battleMusic', {
+            volume: 0.25,
+            loop:true
+        })
+        this.music.play()
 
         // Create the UI image
         this.UI = this.add.sprite(0, 0, 'BattleUI').setOrigin(0, 0)

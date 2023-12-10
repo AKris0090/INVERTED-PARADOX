@@ -1,4 +1,3 @@
-// Requires a player to be passed in via start data
 class Overworld extends Phaser.Scene {
     constructor() {
         super("overworld");
@@ -7,8 +6,11 @@ class Overworld extends Phaser.Scene {
     startBossBattle(){
         if(this.canMove == true){
             this.canMove = false
-            this.cameras.main.fadeOut(500, 255, 255, 255, (cam, complete)=>{
+            this.music.stop()
+            this.battleStart.play()
+            this.cameras.main.fadeOut(2000, 255, 255, 255, (cam, complete)=>{
                 if(complete == 1){
+                    this.battleStart.stop()
                     this.scene.start('battle', {enemy: 'boss'})
                 }
             })
@@ -20,6 +22,18 @@ class Overworld extends Phaser.Scene {
         
         // Used for when transitioning into a battle, so the player can't move during that transition
         this.canMove = true
+
+        // play the music
+        this.music = this.sound.add('overworldMusic', {
+            volume: 0.25,
+            loop:true
+        })
+        this.music.play()
+
+        // create battle start sound effect
+        this.battleStart = this.sound.add('battleStart', {
+            volume: 0.5
+        })
 
         // velocity constant
         this.VEL = 500
@@ -99,13 +113,16 @@ class Overworld extends Phaser.Scene {
         this.cameras.main.startFollow(this.player, true)
 
         this.battleTimer = this.time.addEvent({
-            delay: 1000,
+            delay: 2000,
             callback: ()=>{
                 character.x = this.player.x;
                 character.y = this.player.y;
                 this.canMove = false
-                this.cameras.main.fadeOut(500, 255, 255, 255, (cam, complete)=>{
+                this.music.stop()
+                this.battleStart.play()
+                this.cameras.main.fadeOut(750, 255, 255, 255, (cam, complete)=>{
                     if(complete == 1){
+                        this.battleStart.stop()
                         this.scene.start('battle', {char: character, enemy: 'random'})
                     }
                 })
