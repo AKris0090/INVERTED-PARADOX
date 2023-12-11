@@ -239,9 +239,9 @@ class EnemyAction extends State{
         // If the player chose to defend, revert thier defense to the normal values
         character.revertDef()
         // Play the sound and animation for gumball taking damage
-        // TODO: add the enemy's attack animation
         scene.hit.play()
         scene.gumballDmg.play()
+        scene.enemySprite.anims.play(scene.enemyAttackName)
     }
 
     execute(scene){

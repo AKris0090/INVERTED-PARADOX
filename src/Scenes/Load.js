@@ -25,10 +25,22 @@ class Load extends Phaser.Scene {
         // for battle
         this.load.image('hero', './assets/Sprites/hero.png')
         this.load.image('enemy', './assets/Sprites/enemy.png')
-        this.load.image('squirrel', './assets/Sprites/squirrel.png')
-        this.load.image('townsfolk', './assets/Sprites/townsfolk.png')
-        this.load.image('bigPlant', './assets/Sprites/bigPlant.png')
-        this.load.image('boss', './assets/Sprites/boss.png')
+        this.load.spritesheet('squirrel', './assets/Sprites/squirrel.png', {
+            frameWidth: 200,
+            frameHeight: 200
+        })
+        this.load.spritesheet('townsfolk', './assets/Sprites/townsfolk.png', {
+            frameWidth: 200,
+            frameHeight: 200
+        })
+        this.load.spritesheet('bigPlant', './assets/Sprites/bigPlant.png', {
+            frameWidth: 200,
+            frameHeight: 200
+        })
+        this.load.spritesheet('boss', './assets/Sprites/boss.png', {
+            frameWidth: 200,
+            frameHeight: 200
+        })
         this.load.spritesheet('BattleUI', `./assets/UI/BATTLE UI.png`,{
             frameWidth: 1200,
             frameHeight: 600
@@ -222,6 +234,95 @@ class Load extends Phaser.Scene {
                 frames: [6, 7, 7, 7, 7, 8, 8, 8, 8, 8, 8, 9, 9, 9, 10, 10, 10, 11, 11, 11]
             })
         });
+
+        // Enemies attack and idle
+        // Townsfolk
+        this.anims.create({
+            key: 'townsfolkIdle',
+            frameRate: 1,
+            repeat: -1,
+            frames: this.anims.generateFrameNumbers('townsfolk', {
+                start: 0,
+                end: 0
+            })
+        });
+
+        this.anims.create({
+            key: 'townsfolkAttack',
+            frameRate: 1,
+            repeat: 0,
+            frames: this.anims.generateFrameNumbers('townsfolk', {
+                start:1,
+                end:1
+            })
+        });
+
+        // squirrel
+        this.anims.create({
+            key: 'squirrelIdle',
+            frameRate: 1,
+            repeat: -1,
+            frames: this.anims.generateFrameNumbers('squirrel', {
+                start: 0,
+                end: 0
+            })
+        });
+
+        this.anims.create({
+            key: 'squirrelAttack',
+            frameRate: 1,
+            repeat: 0,
+            frames: this.anims.generateFrameNumbers('squirrel', {
+                start:1,
+                end:1
+            })
+        });
+
+        // bigPlant
+        this.anims.create({
+            // Horrible key because 'big plant' is what is saved in enemy as the enemy's name to make it work in text boxes
+            // So if I want to construct animation names out of that, then I have to use this key
+            // it makes me physically ill
+            key: 'big plantIdle',
+            frameRate: 1,
+            repeat: -1,
+            frames: this.anims.generateFrameNumbers('bigPlant', {
+                start: 0,
+                end: 0
+            })
+        });
+
+        this.anims.create({
+            key: 'big plantAttack',
+            frameRate: 1,
+            repeat: 0,
+            frames: this.anims.generateFrameNumbers('bigPlant', {
+                start:1,
+                end:1
+            })
+        });
+
+        // boss
+        this.anims.create({
+            key: 'bossIdle',
+            frameRate: 1,
+            repeat: -1,
+            frames: this.anims.generateFrameNumbers('boss', {
+                start: 0,
+                end: 0
+            })
+        });
+
+        this.anims.create({
+            key: 'bossAttack',
+            frameRate: 1,
+            repeat: 0,
+            frames: this.anims.generateFrameNumbers('boss', {
+                start:1,
+                end:1
+            })
+        });
+
 
         // go to Title scene
         this.scene.start('menuScene');

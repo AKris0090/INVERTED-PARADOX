@@ -7,9 +7,6 @@ class Battle extends Phaser.Scene {
     create(){
         this.enemy = new Enemy(this.enemyType)
         character.healToFull()
-        console.log("fighting!")
-        console.log(this.enemy)
-        console.log(character)
 
         // Create the background image
         this.add.image(0, 0, 'battleBackground').setOrigin(0, 0)
@@ -67,7 +64,15 @@ class Battle extends Phaser.Scene {
 
         // Create the hero and enemy sprite
         this.playerSprite = this.physics.add.sprite(w*.33, h*.41, 'gumBattle', 0)
-        this.enemySprite = this.physics.add.sprite(w - w*.33, h*.41, this.enemy.stats.spriteName)
+        this.enemySprite = this.physics.add.sprite(w - w*.33, h*.41, this.enemy.stats.spriteName, 0)
+
+        // Construct the names of the enemy's animations
+        // All enemy idle animations are called enemyNameIdle, so put that together here b/c i don't want to think about it later
+        this.enemyAttackName = this.enemy.chosenEnemy + 'Attack'
+        this.enemyIdleName = this.enemy.chosenEnemy + 'Idle'
+
+        // Play the enemy's idle animation
+        this.enemySprite.anims.play(this.enemyIdleName)
 
         // GUMBALL ATTACK ANIMATION -----------------------------------------------------------------------------
         //this.playerSprite.anims.play('gumAttack')
@@ -163,6 +168,9 @@ class Battle extends Phaser.Scene {
         // upon completion of any of gumball or an enemy's animations, return them to their idle animation
         this.playerSprite.on(Phaser.Animations.Events.ANIMATION_COMPLETE, ()=>{
             this.playerSprite.anims.play('gumIdle')
+        }, this)
+        this.enemySprite.on(Phaser.Animations.Events.ANIMATION_COMPLETE, ()=>{
+            this.enemySprite.anims.play(this.enemyIdleName)
         }, this)
     }
 }
