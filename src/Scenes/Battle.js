@@ -73,10 +73,10 @@ class Battle extends Phaser.Scene {
         //this.playerSprite.anims.play('gumAttack')
 
         // GUMBALL IDLE ANIMATION -----------------------------------------------------------------------------
-        //this.playerSprite.anims.play('gumAttack')
+        this.playerSprite.anims.play('gumIdle')
 
         // Damage tween
-        const gumballDmg = this.tweens.add({
+        this.gumballDmg = this.tweens.add({
             targets: this.playerSprite,
             key: 'dmg',
             duration: 75,
@@ -87,7 +87,7 @@ class Battle extends Phaser.Scene {
             paused: true
         })
 
-        const enemyDmg = this.tweens.add({
+        this.enemyDmg = this.tweens.add({
             targets: this.enemySprite,
             key: 'dmg',
             duration: 75,
@@ -99,7 +99,7 @@ class Battle extends Phaser.Scene {
         })
 
         // Defend tween
-        const gumballShield = this.tweens.add({
+        this.gumballShield = this.tweens.add({
             targets: this.playerSprite,
             key: 'dmg',
             duration: 75,
@@ -111,11 +111,11 @@ class Battle extends Phaser.Scene {
         })
 
         // PLAY DAMAGE WITH THIS: -----------------------------------------------------------------------------
-        //gumballDmg.play()
-        //enemyDmg.play()
+        //this.gumballDmg.play()
+        //this.enemyDmg.play()
 
         // PLAY SHIELD WITH THIS: -----------------------------------------------------------------------------
-        //gumballShield.play()
+        //this.gumballShield.play()
 
         // Create the sounds (default config probably fine)
         this.hit = this.sound.add('hit', {
@@ -155,7 +155,11 @@ class Battle extends Phaser.Scene {
     }
 
     update(){
-        // All that needs to be done is the battlefsm be stepped
+        // step battlefsm
         this.battleFSM.step()
+        // upon completion of any of gumball or an enemy's animations, return them to their idle animation
+        this.playerSprite.on(Phaser.Animations.Events.ANIMATION_COMPLETE, ()=>{
+            this.playerSprite.anims.play('gumIdle')
+        }, this)
     }
 }

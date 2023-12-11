@@ -104,10 +104,11 @@ class AttackAction extends State{
         if(scene.enemy.stats.hp < 0){
             scene.enemy.stats.hp = 0
         }
-        // reduces the 
+        // reduces the health bar by an appropriate amount
         scene.enemyHealthBar.setCrop(0, 0, scene.enemyHealthBar.width * scene.enemy.stats.hp/scene.enemy.stats.maxHP, scene.enemyHealthBar.height)
         scene.menuText.text = 'You dealt ' + this.damage + ' damage to the ' + scene.enemy.chosenEnemy + '!'
         scene.hit.play()
+        scene.playerSprite.anims.play('gumAttack')
     }
 
     execute(scene){

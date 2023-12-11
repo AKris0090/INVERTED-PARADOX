@@ -216,8 +216,8 @@ class Load extends Phaser.Scene {
         // Gumball ATTACK
         this.anims.create({
             key: 'gumAttack',
-            frameRate: 20,
-            repeat: -1,
+            frameRate: 40,
+            repeat: 0,
             frames: this.anims.generateFrameNumbers('gumBattle', {
                 frames: [6, 7, 7, 7, 7, 8, 8, 8, 8, 8, 8, 9, 9, 9, 10, 10, 10, 11, 11, 11]
             })
