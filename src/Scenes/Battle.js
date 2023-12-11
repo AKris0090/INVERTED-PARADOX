@@ -66,8 +66,56 @@ class Battle extends Phaser.Scene {
         // Hopefully this scales properly. I have my doubts it will, but we do our best
 
         // Create the hero and enemy sprite
-        this.playerSprite = this.physics.add.sprite(w*.3, h*.39, 'hero')
-        this.enemySprite = this.physics.add.sprite(w - w*.3, h*.39, this.enemy.stats.spriteName)
+        this.playerSprite = this.physics.add.sprite(w*.33, h*.41, 'gumBattle', 0)
+        this.enemySprite = this.physics.add.sprite(w - w*.33, h*.41, this.enemy.stats.spriteName)
+
+        // GUMBALL ATTACK ANIMATION -----------------------------------------------------------------------------
+        //this.playerSprite.anims.play('gumAttack')
+
+        // GUMBALL IDLE ANIMATION -----------------------------------------------------------------------------
+        //this.playerSprite.anims.play('gumAttack')
+
+        // Damage tween
+        const gumballDmg = this.tweens.add({
+            targets: this.playerSprite,
+            key: 'dmg',
+            duration: 75,
+            tint: 0xFF3A3A,
+            yoyo: true,
+            repeat: 2,
+            ease: 'Stepped',
+            paused: true
+        })
+
+        const enemyDmg = this.tweens.add({
+            targets: this.enemySprite,
+            key: 'dmg',
+            duration: 75,
+            tint: 0xFF3A3A,
+            yoyo: true,
+            repeat: 2,
+            ease: 'Stepped',
+            paused: true
+        })
+
+        // Defend tween
+        const gumballShield = this.tweens.add({
+            targets: this.playerSprite,
+            key: 'dmg',
+            duration: 75,
+            tint: 0x0029FF,
+            yoyo: true,
+            repeat: 2,
+            ease: 'Stepped',
+            paused: true
+        })
+
+        // PLAY DAMAGE WITH THIS: -----------------------------------------------------------------------------
+        //gumballDmg.play()
+        //enemyDmg.play()
+
+        // PLAY SHIELD WITH THIS: -----------------------------------------------------------------------------
+        //gumballShield.play()
 
         // Create the sounds (default config probably fine)
         this.hit = this.sound.add('hit', {

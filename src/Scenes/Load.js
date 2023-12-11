@@ -33,6 +33,10 @@ class Load extends Phaser.Scene {
             frameWidth: 1200,
             frameHeight: 600
         })
+        this.load.spritesheet('gumBattle', `./assets/Prefabs_ANIM_Frames/GUMBALL_BATTLE_CLIP.png`,{
+            frameWidth: 175,
+            frameHeight: 200
+        })
         this.load.image('healthBar', './assets/UI/HEALTH BAR.png')
         this.load.image('battleBackground', './assets/SPLASHES/BATTLEBACKGROUND.png')
 
@@ -191,6 +195,31 @@ class Load extends Phaser.Scene {
             frames: this.anims.generateFrameNumbers('gumball', {
                 start: 4,
                 end: 5
+            })
+        });
+
+
+
+        // BATTLE ANIMS
+
+        // Gumball IDLE
+        this.anims.create({
+            key: 'gumIdle',
+            frameRate: 3,
+            repeat: -1,
+            frames: this.anims.generateFrameNumbers('gumBattle', {
+                start: 0,
+                end: 1
+            })
+        });
+
+        // Gumball ATTACK
+        this.anims.create({
+            key: 'gumAttack',
+            frameRate: 20,
+            repeat: -1,
+            frames: this.anims.generateFrameNumbers('gumBattle', {
+                frames: [6, 7, 7, 7, 7, 8, 8, 8, 8, 8, 8, 9, 9, 9, 10, 10, 10, 11, 11, 11]
             })
         });
 
