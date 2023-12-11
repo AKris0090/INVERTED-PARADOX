@@ -107,8 +107,10 @@ class AttackAction extends State{
         // reduces the health bar by an appropriate amount
         scene.enemyHealthBar.setCrop(0, 0, scene.enemyHealthBar.width * scene.enemy.stats.hp/scene.enemy.stats.maxHP, scene.enemyHealthBar.height)
         scene.menuText.text = 'You dealt ' + this.damage + ' damage to the ' + scene.enemy.chosenEnemy + '!'
+        // play the sound, the animation of gumball attacking, and the tween of the enemy taking damage
         scene.hit.play()
-        scene.playerSprite.anims.play('gumAttack')
+        scene.playerSprite.anims.play('gumAttack')  
+        scene.enemyDmg.play()
     }
 
     execute(scene){
@@ -149,7 +151,9 @@ class DefenseAction extends State{
     enter(scene){
         character.defAction()
         scene.menuText.text = 'Your defense is now ' + character.def + '!'
+        // Play the sound for shield, and play the shield animation
         scene.shield.play()
+        scene.gumballShield.play()
     }
 
     execute(scene){
@@ -234,7 +238,10 @@ class EnemyAction extends State{
         scene.menuText.text = 'The ' + scene.enemy.chosenEnemy + ' dealt ' + this.damage + ' damage to you!'
         // If the player chose to defend, revert thier defense to the normal values
         character.revertDef()
+        // Play the sound and animation for gumball taking damage
+        // TODO: add the enemy's attack animation
         scene.hit.play()
+        scene.gumballDmg.play()
     }
 
     execute(scene){

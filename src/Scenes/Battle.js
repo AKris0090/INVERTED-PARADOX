@@ -84,7 +84,8 @@ class Battle extends Phaser.Scene {
             yoyo: true,
             repeat: 2,
             ease: 'Stepped',
-            paused: true
+            paused: true,
+            persist: true
         })
 
         this.enemyDmg = this.tweens.add({
@@ -95,7 +96,8 @@ class Battle extends Phaser.Scene {
             yoyo: true,
             repeat: 2,
             ease: 'Stepped',
-            paused: true
+            paused: true,
+            persist: true
         })
 
         // Defend tween
@@ -107,7 +109,8 @@ class Battle extends Phaser.Scene {
             yoyo: true,
             repeat: 2,
             ease: 'Stepped',
-            paused: true
+            paused: true,
+            persist: true
         })
 
         // PLAY DAMAGE WITH THIS: -----------------------------------------------------------------------------
