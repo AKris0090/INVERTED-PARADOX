@@ -13,7 +13,7 @@ class Credits extends Phaser.Scene{
         })
         this.music.play()
         
-        // Style the text that will be used in the ending
+        // Style the text that will be used in the credits
         this.menuConfig = {
             fontFamily: 'Courier',
             fontSize: '28px',
@@ -30,9 +30,10 @@ class Credits extends Phaser.Scene{
                 fill:true
             }
         }
-        this.menuText = this.add.text(0.03*w, 0.05*h, `Coded by Moore Macauley and Arjun Krishnan
+        this.menuText = this.add.text(0.03*w, 0.05*h, `Based on the Amazing World of Gumball, Season 5, Episode 18: The Console
+        Coded by Moore Macauley and Arjun Krishnan
 
-        Unmentioned art assets created by Arjun Krishnan
+        All other art assets created by Arjun Krishnan
         Grass texture in the battle's background comes from https://opengameart.org/content/grass-texture-pack
 
         Battle sound effects courtesy of https://sfxr.me/

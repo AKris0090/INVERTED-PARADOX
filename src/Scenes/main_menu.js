@@ -41,6 +41,8 @@ class Menu extends Phaser.Scene {
         this.cursors = this.input.keyboard.createCursorKeys()
         this.one = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ONE)
         this.two = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TWO)
+        this.c = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.C)
+        
 
         character = new Character()
         character.x = 1525.24242424242;
@@ -64,6 +66,11 @@ class Menu extends Phaser.Scene {
         if(this.cursors.space.isDown){
             this.music.stop()
             this.scene.start('instructions')
+        }
+        // c for credits 
+        if(this.c.isDown){
+            this.music.stop()
+            this.scene.start('credits')
         }
     }
 }
