@@ -6,10 +6,15 @@ class Battle extends Phaser.Scene {
 
     create(){
         this.enemy = new Enemy(this.enemyType)
-        character.healToFull()
 
         // Create the background image
         this.add.image(0, 0, 'battleBackground').setOrigin(0, 0)
+
+        // Create the hero and enemy sprite
+        this.playerSprite = this.physics.add.sprite(w*.33, h*.41, 'gumBattle', 0)
+        this.enemySprite = this.physics.add.sprite(w - w*.33, h*.325, this.enemy.stats.spriteName, 0)
+
+        character.healToFull()
 
         // play the music
         this.music = this.sound.add('battleMusic', {
@@ -61,10 +66,6 @@ class Battle extends Phaser.Scene {
         // 834 of 1200 for enemy width, so 0.695. Same height as the player's bar
         this.enemyHealthBar = this.add.sprite(0.695*w, 0.593333333*h, 'healthBar').setOrigin(0,0)
         // Hopefully this scales properly. I have my doubts it will, but we do our best
-
-        // Create the hero and enemy sprite
-        this.playerSprite = this.physics.add.sprite(w*.33, h*.41, 'gumBattle', 0)
-        this.enemySprite = this.physics.add.sprite(w - w*.33, h*.41, this.enemy.stats.spriteName, 0)
 
         // Construct the names of the enemy's animations
         // All enemy idle animations are called enemyNameIdle, so put that together here b/c i don't want to think about it later

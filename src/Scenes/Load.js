@@ -33,9 +33,9 @@ class Load extends Phaser.Scene {
             frameWidth: 200,
             frameHeight: 200
         })
-        this.load.spritesheet('bigPlant', './assets/Sprites/bigPlant.png', {
-            frameWidth: 200,
-            frameHeight: 200
+        this.load.spritesheet('bigPlant', './assets/Prefabs_ANIM_Frames/PLANT_BATTLE_CLIP.png', {
+            frameWidth: 425,
+            frameHeight: 325
         })
         this.load.spritesheet('boss', './assets/Sprites/boss.png', {
             frameWidth: 200,
@@ -284,11 +284,11 @@ class Load extends Phaser.Scene {
             // So if I want to construct animation names out of that, then I have to use this key
             // it makes me physically ill
             key: 'big plantIdle',
-            frameRate: 1,
+            frameRate: 3,
             repeat: -1,
             frames: this.anims.generateFrameNumbers('bigPlant', {
                 start: 0,
-                end: 0
+                end: 1
             })
         });
 
