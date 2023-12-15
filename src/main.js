@@ -4,7 +4,7 @@
 // Tilemap, for creating the map in the overworld
 // Timers, for the tracking of when random encounters should happen in the overworld
 // Cameras, for the effects used to transition between the overworld and the battle scene
-// Animations, for making the character walk in the overworld, the rain effect over THE AWESOME STORE, and probably somewhere else we've forgotten 
+// Animations, for making the character walk in the overworld, the rain effect over THE AWESOME STORE, the battle scene
 
 // About balancing, for the grader
 // A townsfolk should be easily beatable at level 1

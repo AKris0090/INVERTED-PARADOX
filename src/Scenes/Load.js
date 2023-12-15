@@ -37,9 +37,9 @@ class Load extends Phaser.Scene {
             frameWidth: 425,
             frameHeight: 325
         })
-        this.load.spritesheet('boss', './assets/Sprites/boss.png', {
-            frameWidth: 200,
-            frameHeight: 200
+        this.load.spritesheet('boss', './assets/Prefabs_ANIM_Frames/BOSS_BATTLE_CLIP.png', {
+            frameWidth: 425,
+            frameHeight: 325
         })
         this.load.spritesheet('BattleUI', `./assets/UI/BATTLE UI.png`,{
             frameWidth: 1200,
@@ -273,7 +273,7 @@ class Load extends Phaser.Scene {
             frameRate: 25,
             repeat: 0,
             frames: this.anims.generateFrameNumbers('squirrel', {
-                frames: [5, 6, 6, 6, 7, 7, 7, 7, 7, 8, 8, 8, 8, 8, 9, 9, 9, 9, 9, 9, 9, 9, 8, 8, 8, 8, 8, 8, 8, 9, 9, 9, 9, 9, 9, 9]
+                frames: [5, 6, 6, 6, 7, 7, 7, 7, 8, 8, 8, 8, 8, 9, 9, 9, 9, 9, 9, 8, 8, 8, 8, 8, 9, 9, 9, 9, 9, 9, 9, 9]
             })
         });
 
@@ -303,21 +303,20 @@ class Load extends Phaser.Scene {
         // boss
         this.anims.create({
             key: 'bossIdle',
-            frameRate: 1,
+            frameRate: 3,
             repeat: -1,
             frames: this.anims.generateFrameNumbers('boss', {
                 start: 0,
-                end: 0
+                end: 1
             })
         });
 
         this.anims.create({
             key: 'bossAttack',
-            frameRate: 1,
+            frameRate: 25,
             repeat: 0,
             frames: this.anims.generateFrameNumbers('boss', {
-                start:1,
-                end:1
+                frames: [7, 8, 8, 9, 9, 10, 8, 8, 9, 9, 10, 8, 8, 9, 9, 10, 11, 11, 11, 11, 11, 11, 12, 12, 12, 13, 13, 13, 13, 12, 12, 12, 13, 13, 12, 12, 13, 13]
             })
         });
 
