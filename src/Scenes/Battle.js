@@ -12,7 +12,7 @@ class Battle extends Phaser.Scene {
 
         // Create the hero and enemy sprite
         this.playerSprite = this.physics.add.sprite(w*.33, h*.41, 'gumBattle', 0)
-        this.enemySprite = this.physics.add.sprite(w - w*.33, h*.325, this.enemy.stats.spriteName, 0)
+        this.enemySprite = this.physics.add.sprite(w - w*.37, h*.325, this.enemy.stats.spriteName, 0)
 
         character.healToFull()
 
@@ -84,6 +84,7 @@ class Battle extends Phaser.Scene {
         // Damage tween
         this.gumballDmg = this.tweens.add({
             targets: this.playerSprite,
+            delay: 700,
             key: 'dmg',
             duration: 75,
             tint: 0xFF3A3A,
@@ -96,6 +97,7 @@ class Battle extends Phaser.Scene {
 
         this.enemyDmg = this.tweens.add({
             targets: this.enemySprite,
+            delay: 500,
             key: 'dmg',
             duration: 75,
             tint: 0xFF3A3A,

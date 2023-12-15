@@ -25,9 +25,9 @@ class Load extends Phaser.Scene {
         // for battle
         this.load.image('hero', './assets/Sprites/hero.png')
         this.load.image('enemy', './assets/Sprites/enemy.png')
-        this.load.spritesheet('squirrel', './assets/Sprites/squirrel.png', {
-            frameWidth: 200,
-            frameHeight: 200
+        this.load.spritesheet('squirrel', './assets/Prefabs_ANIM_Frames/SQUIRREL_BATTLE_CLIP.png', {
+            frameWidth: 425,
+            frameHeight: 325
         })
         this.load.spritesheet('townsfolk', './assets/Sprites/townsfolk.png', {
             frameWidth: 200,
@@ -260,21 +260,20 @@ class Load extends Phaser.Scene {
         // squirrel
         this.anims.create({
             key: 'squirrelIdle',
-            frameRate: 1,
+            frameRate: 3,
             repeat: -1,
             frames: this.anims.generateFrameNumbers('squirrel', {
                 start: 0,
-                end: 0
+                end: 1
             })
         });
 
         this.anims.create({
             key: 'squirrelAttack',
-            frameRate: 1,
+            frameRate: 25,
             repeat: 0,
             frames: this.anims.generateFrameNumbers('squirrel', {
-                start:1,
-                end:1
+                frames: [5, 6, 6, 6, 7, 7, 7, 7, 7, 8, 8, 8, 8, 8, 9, 9, 9, 9, 9, 9, 9, 9, 8, 8, 8, 8, 8, 8, 8, 9, 9, 9, 9, 9, 9, 9]
             })
         });
 
@@ -294,11 +293,10 @@ class Load extends Phaser.Scene {
 
         this.anims.create({
             key: 'big plantAttack',
-            frameRate: 1,
+            frameRate: 25,
             repeat: 0,
             frames: this.anims.generateFrameNumbers('bigPlant', {
-                start:1,
-                end:1
+                frames: [7, 8, 8, 8, 8, 9, 9, 9, 9, 9, 10, 10, 10, 10, 10, 11, 11, 11, 12, 12, 12, 12, 13, 13, 13, 13, 13, 13, 13]
             })
         });
 
