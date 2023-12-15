@@ -32,15 +32,19 @@ class Instructions extends Phaser.Scene{
         }
         // TODO: make it more pretty than text on a white background
         this.menuText = this.add.text(0.03*w, 0.05*h, `Gumball has been sucked into a video game!
-        He got the game from THE AWESOME STORE, a place known for selling dangerous items such as this.
-        Defeat enemies and defenceless townsfolk until you think you're powerful to face what lurks in THE AWESOME STORE!
 
-        Control Gumball with the arrow keys in the overworld. Every so often, a random encounter will occur.
-        When in a battle, use the up and down arrow keys to select an action, then space to select an action and see what the enemy does.
+        He got the game from THE AWESOME STORE, known for selling dangerous items.
+        Defeat enemies and townsfolk until you think you're powerful to face what lurks in THE AWESOME STORE!
+
+        Control Gumball with the [ARROW KEYS] in the overworld, and every so often, a random encounter will occur.
+        
+        When in a battle, use the up and down arrow keys to select an action, then [SPACE] to select an action.
+
         Defeating enemies grants experiance points, and eventually levels. Do not be afraid to run, some enemies will be too powerful to begin with.
+
         Walk into THE AWESOME STORE on the west side of town when you think you are ready. But there is no going back once you decide.
 
-        Press space to continue
+        Press [SPACE] to continue
         `, this.menuConfig).setOrigin(0, 0)
     }
     update(){
