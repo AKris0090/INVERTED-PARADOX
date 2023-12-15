@@ -29,9 +29,9 @@ class Load extends Phaser.Scene {
             frameWidth: 425,
             frameHeight: 325
         })
-        this.load.spritesheet('townsfolk', './assets/Sprites/townsfolk.png', {
-            frameWidth: 200,
-            frameHeight: 200
+        this.load.spritesheet('townsfolk', './assets/Prefabs_ANIM_Frames/TOWNSFOLK_BATTLE_CLIP.png', {
+            frameWidth: 425,
+            frameHeight: 325
         })
         this.load.spritesheet('bigPlant', './assets/Prefabs_ANIM_Frames/PLANT_BATTLE_CLIP.png', {
             frameWidth: 425,
@@ -239,21 +239,20 @@ class Load extends Phaser.Scene {
         // Townsfolk
         this.anims.create({
             key: 'townsfolkIdle',
-            frameRate: 1,
+            frameRate: 3,
             repeat: -1,
             frames: this.anims.generateFrameNumbers('townsfolk', {
                 start: 0,
-                end: 0
+                end: 1
             })
         });
 
         this.anims.create({
             key: 'townsfolkAttack',
-            frameRate: 1,
+            frameRate: 25,
             repeat: 0,
             frames: this.anims.generateFrameNumbers('townsfolk', {
-                start:1,
-                end:1
+                frames: [7, 8, 8, 8, 9, 9, 9, 10, 10, 10, 11, 11, 11, 12, 12, 13, 13, 13, 13, 13, 13, 13, 13, 13]
             })
         });
 
@@ -316,7 +315,7 @@ class Load extends Phaser.Scene {
             frameRate: 25,
             repeat: 0,
             frames: this.anims.generateFrameNumbers('boss', {
-                frames: [7, 8, 8, 9, 9, 10, 8, 8, 9, 9, 10, 8, 8, 9, 9, 10, 11, 11, 11, 11, 11, 11, 12, 12, 12, 13, 13, 13, 13, 12, 12, 12, 13, 13, 12, 12, 13, 13]
+                frames: [7, 8, 8, 9, 9, 10, 8, 8, 9, 9, 10, 8, 8, 9, 9, 10, 11, 11, 11, 11, 11, 11, 12, 12, 12, 13, 13, 13, 13, 12, 12, 12, 13, 13, 12, 12, 13, 13, 12, 12, 13, 13]
             })
         });
 
