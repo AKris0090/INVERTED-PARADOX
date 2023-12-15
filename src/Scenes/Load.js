@@ -51,6 +51,7 @@ class Load extends Phaser.Scene {
         })
         this.load.image('healthBar', './assets/UI/HEALTH BAR.png')
         this.load.image('battleBackground', './assets/SPLASHES/BATTLEBACKGROUND.png')
+        this.load.image('bossBattleBackground', './assets/SPLASHES/BOSSBATTLEBACKGROUND.png')
 
         // for overworld
         this.load.image('tilesetImage', './assets/tilemaps/gumball_tileset.png')

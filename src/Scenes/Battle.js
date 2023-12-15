@@ -7,16 +7,17 @@ class Battle extends Phaser.Scene {
     create(){
         this.enemy = new Enemy(this.enemyType)
 
-        // Create the background image
-        this.add.image(0, 0, 'battleBackground').setOrigin(0, 0)
-
         // Create the hero and enemy sprite
         if(this.enemy.chosenEnemy == "boss"){
+            // Create the background image
+            this.add.image(0, 0, 'bossBattleBackground').setOrigin(0, 0)
             this.playerSprite = this.physics.add.sprite(w*.33, h*.453, 'gumBattle', 0)
             this.playerSprite.setScale(0.67)
             this.enemySprite = this.physics.add.sprite(w - w*.37, h*.315, this.enemy.stats.spriteName, 0)
             this.enemySprite.setScale(1.15)
         } else {
+            // Create the background image
+            this.add.image(0, 0, 'battleBackground').setOrigin(0, 0)
             this.playerSprite = this.physics.add.sprite(w*.33, h*.41, 'gumBattle', 0)
             this.enemySprite = this.physics.add.sprite(w - w*.37, h*.325, this.enemy.stats.spriteName, 0)
         }
